@@ -16,6 +16,7 @@ public class Action extends BaseEntity {
     private String notes;
     private Integer maxCharges;
     private Integer availableCharges;
+    private Byte unlockLevel;
 
     public Action() {
     }
@@ -112,6 +113,15 @@ public class Action extends BaseEntity {
 
     public Action setAvailableCharges(Integer availableCharges) {
         this.availableCharges = availableCharges;
+        return this;
+    }
+
+    public Byte getUnlockLevel() {
+        return unlockLevel;
+    }
+
+    public Action setUnlockLevel(Byte unlockLevel) {
+        this.unlockLevel = unlockLevel;
         return this;
     }
 }

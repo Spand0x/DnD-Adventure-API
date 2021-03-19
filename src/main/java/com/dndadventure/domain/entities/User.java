@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity{
     private String username;
     private String email;
     private String password;
@@ -44,7 +44,7 @@ public class User extends BaseEntity {
     }
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "uuid"),
@@ -58,7 +58,7 @@ public class User extends BaseEntity {
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "users_campaigns",
         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "uuid"),
@@ -72,7 +72,7 @@ public class User extends BaseEntity {
         return this;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     public Set<Character> getCharacters() {
         return characters;
     }

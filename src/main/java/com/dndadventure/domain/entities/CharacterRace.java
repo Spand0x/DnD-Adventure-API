@@ -1,20 +1,21 @@
 package com.dndadventure.domain.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.dndadventure.domain.entities.RaceTraits.RaceAdvantage;
+import com.dndadventure.domain.entities.RaceTraits.RaceDisadvantage;
+
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "races")
 public class CharacterRace extends BaseEntity {
     private String name;
     private String description;
-    private String pros;
-    private String cons;
-    private List<RaceStatsModifier> modifiers;
+    private Set<RaceAdvantage> advantages;
+    private Set<RaceDisadvantage> disadvantages;
+    private List<StatsModifier> modifiers;
 
     public CharacterRace() {
     }
@@ -38,30 +39,39 @@ public class CharacterRace extends BaseEntity {
         return this;
     }
 
-    public String getPros() {
-        return pros;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "race_uuid",referencedColumnName = "uuid")
+    public Set<RaceAdvantage> getAdvantages() {
+        return advantages;
     }
 
-    public CharacterRace setPros(String pros) {
-        this.pros = pros;
+    public CharacterRace setAdvantages(Set<RaceAdvantage> advantages) {
+        this.advantages = advantages;
         return this;
     }
 
-    public String getCons() {
-        return cons;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "race_uuid", referencedColumnName = "uuid")
+    public Set<RaceDisadvantage> getDisadvantages() {
+        return disadvantages;
     }
 
-    public CharacterRace setCons(String cons) {
-        this.cons = cons;
+    public CharacterRace setDisadvantages(Set<RaceDisadvantage> disadvantages) {
+        this.disadvantages = disadvantages;
         return this;
     }
 
-    @OneToMany(mappedBy = "race")
-    public List<RaceStatsModifier> getModifiers() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "races_stats_modifiers",
+        joinColumns = @JoinColumn(name = "race_uuid", referencedColumnName = "uuid"),
+        inverseJoinColumns = @JoinColumn(name = "class_uuid", referencedColumnName = "uuid")
+    )
+    public List<StatsModifier> getModifiers() {
         return modifiers;
     }
 
-    public CharacterRace setModifiers(List<RaceStatsModifier> modifiers) {
+    public CharacterRace setModifiers(List<StatsModifier> modifiers) {
         this.modifiers = modifiers;
         return this;
     }

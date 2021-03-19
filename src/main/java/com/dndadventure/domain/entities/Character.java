@@ -30,6 +30,8 @@ public class Character extends BaseEntity {
 
     private List<Item> items;
 
+    //todo maybe add inventory
+
     public Character() {
     }
 

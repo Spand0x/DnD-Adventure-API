@@ -22,3 +22,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+dnd_adventure:
+  webapp_url: http://localhost:4200
+  secret: SECRET
+  secure_token: false
+  token_http_only: true

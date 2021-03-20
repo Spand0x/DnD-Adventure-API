@@ -1,9 +1,10 @@
 package com.dndadventure.domain.entities.items;
 
-import com.dndadventure.domain.entities.DiceType;
+import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 public class Weapon extends Item {
     private String weaponType;
     private String attackType;
-    private DiceType diceDamage;
+    private DiceTypeEnum diceDamage;
     private Integer bonusDamage;
 
     public Weapon() {
@@ -35,12 +36,12 @@ public class Weapon extends Item {
         return this;
     }
 
-    @OneToOne
-    public DiceType getDiceDamage() {
+    @Enumerated(EnumType.STRING)
+    public DiceTypeEnum getDiceDamage() {
         return diceDamage;
     }
 
-    public Weapon setDiceDamage(DiceType diceDamage) {
+    public Weapon setDiceDamage(DiceTypeEnum diceDamage) {
         this.diceDamage = diceDamage;
         return this;
     }

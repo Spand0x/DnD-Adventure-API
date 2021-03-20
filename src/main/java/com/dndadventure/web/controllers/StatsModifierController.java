@@ -20,8 +20,8 @@ public class StatsModifierController {
 
     @PostMapping
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public StatsModifier create(@RequestBody StatsModifierCreateDto statsModifier) {
-        return this.modifierService.save(statsModifier);
+    public void create(@RequestBody StatsModifierCreateDto statsModifier) {
+        this.modifierService.create(statsModifier);
     }
 
     @GetMapping("/all")

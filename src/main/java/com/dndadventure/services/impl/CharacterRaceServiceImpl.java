@@ -33,13 +33,9 @@ public class CharacterRaceServiceImpl implements CharacterRaceService {
         return all;
     }
 
-    @Override
-    public List<CharacterRace> saveAll(List<CharacterRace> characterRaces) {
-        return this.characterRaceRepository.saveAll(characterRaces);
-    }
 
     @Override
-    public CharacterRace save(CharacterRaceCreateDto characterRaceCreateDto) {
+    public void create(CharacterRaceCreateDto characterRaceCreateDto) {
         CharacterRace characterRace = this.modelMapper.map(characterRaceCreateDto, CharacterRace.class);
         List<StatsModifier> modifiers = new ArrayList<>();
         characterRaceCreateDto.getModifiers().forEach(modif -> {
@@ -49,6 +45,6 @@ public class CharacterRaceServiceImpl implements CharacterRaceService {
             modifiers.add(statsModifier);
         });
         characterRace.setModifiers(modifiers);
-        return this.characterRaceRepository.save(characterRace);
+        this.characterRaceRepository.save(characterRace);
     }
 }

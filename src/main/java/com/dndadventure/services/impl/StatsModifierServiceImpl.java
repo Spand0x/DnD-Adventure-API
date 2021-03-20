@@ -22,9 +22,9 @@ public class StatsModifierServiceImpl implements StatsModifierService {
     }
 
     @Override
-    public StatsModifier save(StatsModifierCreateDto statsModifier) {
+    public void create(StatsModifierCreateDto statsModifier) {
         StatsModifier modifier = this.modelMapper.map(statsModifier, StatsModifier.class);
-        return this.statsModifierRepository.save(modifier);
+        this.statsModifierRepository.save(modifier);
     }
 
     @Override

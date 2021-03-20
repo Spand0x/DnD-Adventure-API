@@ -6,8 +6,6 @@ import com.dndadventure.services.CharacterRaceService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/races")
 public class CharacterRaceController {
@@ -25,8 +23,7 @@ public class CharacterRaceController {
 
     @PostMapping
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public CharacterRace create(@RequestBody CharacterRaceCreateDto characterRaceCreateDto) {
-        this.characterRaceService.save(characterRaceCreateDto);
-        return null;
+    public void create(@RequestBody CharacterRaceCreateDto characterRaceCreateDto) {
+        this.characterRaceService.create(characterRaceCreateDto);
     }
 }

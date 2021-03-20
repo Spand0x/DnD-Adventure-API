@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface CharacterRaceService {
     List<CharacterRace> findAll();
-
-    List<CharacterRace> saveAll(List<CharacterRace> characterRaces);
-
-    CharacterRace save(CharacterRaceCreateDto characterRaceCreateDto);
+    
+    void create(CharacterRaceCreateDto characterRaceCreateDto);
 }

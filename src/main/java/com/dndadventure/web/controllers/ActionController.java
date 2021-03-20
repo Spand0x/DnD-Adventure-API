@@ -1,5 +1,6 @@
 package com.dndadventure.web.controllers;
 
+import com.dndadventure.domain.dtos.AttackCreateDto;
 import com.dndadventure.domain.dtos.SpellCreateDto;
 import com.dndadventure.services.ActionService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,5 +23,11 @@ public class ActionController {
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
     public void createSpell(@RequestBody SpellCreateDto spellCreateDto) {
         this.actionService.createSpell(spellCreateDto);
+    }
+
+    @PostMapping("/attack")
+    @PreAuthorize("hasRole('DUNGEON_MASTER')")
+    public void createAttack(@RequestBody AttackCreateDto attackCreateDto) {
+        this.actionService.createAttack(attackCreateDto);
     }
 }

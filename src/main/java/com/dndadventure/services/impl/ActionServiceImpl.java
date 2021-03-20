@@ -1,5 +1,6 @@
 package com.dndadventure.services.impl;
 
+import com.dndadventure.domain.dtos.AttackCreateDto;
 import com.dndadventure.domain.dtos.SpellCreateDto;
 import com.dndadventure.domain.entities.Action;
 import com.dndadventure.repositories.ActionRepository;
@@ -22,5 +23,11 @@ public class ActionServiceImpl implements ActionService {
         Action spell = this.modelMapper.map(spellCreateDto, Action.class);
         spell.setAvailableCharges(spellCreateDto.getMaxCharges());
         this.actionRepository.save(spell);
+    }
+
+    @Override
+    public void createAttack(AttackCreateDto attackCreateDto) {
+        Action attack = this.modelMapper.map(attackCreateDto, Action.class);
+        this.actionRepository.save(attack);
     }
 }

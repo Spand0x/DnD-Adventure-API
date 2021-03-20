@@ -21,6 +21,7 @@ public class Action extends BaseEntity {
     private Byte unlockLevel;
     private String effect;
     private String notes;
+    private String attackType;
 
     public Action() {
     }
@@ -135,6 +136,15 @@ public class Action extends BaseEntity {
 
     public Action setEffect(String effect) {
         this.effect = effect;
+        return this;
+    }
+
+    public String getAttackType() {
+        return attackType;
+    }
+
+    public Action setAttackType(String attackType) {
+        this.attackType = attackType;
         return this;
     }
 }

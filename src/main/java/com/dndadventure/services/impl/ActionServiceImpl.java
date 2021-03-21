@@ -3,10 +3,13 @@ package com.dndadventure.services.impl;
 import com.dndadventure.domain.dtos.AttackCreateDto;
 import com.dndadventure.domain.dtos.SpellCreateDto;
 import com.dndadventure.domain.entities.Action;
+import com.dndadventure.domain.entities.constants.ActionTypeEnum;
 import com.dndadventure.repositories.ActionRepository;
 import com.dndadventure.services.ActionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ActionServiceImpl implements ActionService {
@@ -29,5 +32,10 @@ public class ActionServiceImpl implements ActionService {
     public void createAttack(AttackCreateDto attackCreateDto) {
         Action attack = this.modelMapper.map(attackCreateDto, Action.class);
         this.actionRepository.save(attack);
+    }
+
+    @Override
+    public List<Action> findAllAttack() {
+        return this.actionRepository.findAllByType(ActionTypeEnum.ATTACK);
     }
 }

@@ -7,6 +7,8 @@ import com.dndadventure.services.CharacterClassService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CharacterClassServiceImpl implements CharacterClassService {
     private final CharacterClassRepository characterClassRepository;
@@ -21,5 +23,10 @@ public class CharacterClassServiceImpl implements CharacterClassService {
     public void create(CharacterClassCreateDto characterClassCreateDto) {
         CharacterClass characterClass = this.modelMapper.map(characterClassCreateDto, CharacterClass.class);
         this.characterClassRepository.save(characterClass);
+    }
+
+    @Override
+    public List<CharacterClass> getAll() {
+        return this.characterClassRepository.findAll();
     }
 }

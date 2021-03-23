@@ -26,7 +26,7 @@ public class Character extends BaseEntity {
     private Campaign campaign;
 
     private Set<CharacterStats> stats;
-    private Set<Action> actions;
+    private Set<Spell> spells;
 
     private List<Item> items;
 
@@ -148,13 +148,17 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToMany
-    public Set<Action> getActions() {
-        return actions;
+    @ManyToMany
+    @JoinTable(
+        name = "characters_spells",
+        joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
+        inverseJoinColumns = @JoinColumn(name = "spell_uuid", referencedColumnName = "uuid"))
+    public Set<Spell> getSpells() {
+        return spells;
     }
 
-    public Character setActions(Set<Action> actions) {
-        this.actions = actions;
+    public Character setSpells(Set<Spell> spells) {
+        this.spells = spells;
         return this;
     }
 

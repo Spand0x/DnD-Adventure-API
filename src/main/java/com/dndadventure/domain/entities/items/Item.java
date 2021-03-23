@@ -1,12 +1,9 @@
 package com.dndadventure.domain.entities.items;
 
 import com.dndadventure.domain.entities.BaseEntity;
-import com.dndadventure.domain.entities.Rarity;
+import com.dndadventure.domain.entities.constants.RarityEnum;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -16,7 +13,7 @@ public abstract class Item extends BaseEntity {
     private Integer gold;
     private String imageUrl;
     private Integer quantity;
-    private Rarity rarity;
+    private RarityEnum rarity;
 
     //TODO: Add spell to Items
 
@@ -68,12 +65,12 @@ public abstract class Item extends BaseEntity {
         return this;
     }
 
-    @ManyToOne
-    public Rarity getRarity() {
+    @Enumerated(EnumType.STRING)
+    public RarityEnum getRarity() {
         return rarity;
     }
 
-    public Item setRarity(Rarity rarity) {
+    public Item setRarity(RarityEnum rarity) {
         this.rarity = rarity;
         return this;
     }

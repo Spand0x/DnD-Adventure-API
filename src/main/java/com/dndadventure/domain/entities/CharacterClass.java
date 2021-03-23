@@ -11,7 +11,6 @@ public class CharacterClass extends BaseEntity {
     private String name;
     private String description;
     private DiceTypeEnum hitPointsDice;
-    private CharacterStatsEnum primaryStat;
     private CharacterStatsEnum savingThrowStat;
 //    private List<Action> actions;
 
@@ -44,16 +43,6 @@ public class CharacterClass extends BaseEntity {
 
     public CharacterClass setHitPointsDice(DiceTypeEnum hitPointsDice) {
         this.hitPointsDice = hitPointsDice;
-        return this;
-    }
-
-    @Enumerated(EnumType.STRING)
-    public CharacterStatsEnum getPrimaryStat() {
-        return primaryStat;
-    }
-
-    public CharacterClass setPrimaryStat(CharacterStatsEnum primaryStat) {
-        this.primaryStat = primaryStat;
         return this;
     }
 

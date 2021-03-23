@@ -11,7 +11,6 @@ public abstract class Item extends BaseEntity {
     private String name;
     private String description;
     private Integer gold;
-    private String imageUrl;
     private Integer quantity;
     private RarityEnum rarity;
 
@@ -44,15 +43,6 @@ public abstract class Item extends BaseEntity {
 
     public Item setGold(Integer gold) {
         this.gold = gold;
-        return this;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public Item setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
         return this;
     }
 

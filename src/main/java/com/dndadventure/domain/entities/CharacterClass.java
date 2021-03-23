@@ -4,7 +4,6 @@ import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "classes")
@@ -12,6 +11,8 @@ public class CharacterClass extends BaseEntity {
     private String name;
     private String description;
     private DiceTypeEnum hitPointsDice;
+    private CharacterStatsEnum primaryStat;
+    private CharacterStatsEnum savingThrowStat;
 //    private List<Action> actions;
 
     public CharacterClass() {
@@ -46,7 +47,27 @@ public class CharacterClass extends BaseEntity {
         return this;
     }
 
-//    @ManyToMany
+    @Enumerated(EnumType.STRING)
+    public CharacterStatsEnum getPrimaryStat() {
+        return primaryStat;
+    }
+
+    public CharacterClass setPrimaryStat(CharacterStatsEnum primaryStat) {
+        this.primaryStat = primaryStat;
+        return this;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public CharacterStatsEnum getSavingThrowStat() {
+        return savingThrowStat;
+    }
+
+    public CharacterClass setSavingThrowStat(CharacterStatsEnum savingThrowStat) {
+        this.savingThrowStat = savingThrowStat;
+        return this;
+    }
+
+    //    @ManyToMany
 //    @JoinTable(
 //        name = "classes_actions",
 //        joinColumns = @JoinColumn(name = "class_uuid", referencedColumnName = "uuid"),

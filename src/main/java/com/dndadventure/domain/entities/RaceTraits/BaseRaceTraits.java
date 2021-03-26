@@ -2,10 +2,7 @@ package com.dndadventure.domain.entities.RaceTraits;
 
 import com.dndadventure.domain.entities.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class BaseRaceTraits extends BaseEntity {
@@ -24,6 +21,7 @@ public abstract class BaseRaceTraits extends BaseEntity {
         return this;
     }
 
+    @Column(columnDefinition = "TEXT")
     public String getDescription() {
         return description;
     }

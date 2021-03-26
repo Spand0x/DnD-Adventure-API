@@ -1,6 +1,7 @@
 package com.dndadventure.domain.entities.items;
 
 import com.dndadventure.domain.entities.BaseEntity;
+import com.dndadventure.domain.entities.Spell;
 import com.dndadventure.domain.entities.constants.RarityEnum;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public abstract class Item extends BaseEntity {
     private Integer gold;
     private Integer quantity;
     private RarityEnum rarity;
+    private Spell spell;
 
     //TODO: Add spell to Items
 
@@ -62,6 +64,16 @@ public abstract class Item extends BaseEntity {
 
     public Item setRarity(RarityEnum rarity) {
         this.rarity = rarity;
+        return this;
+    }
+
+    @OneToOne
+    public Spell getSpell() {
+        return spell;
+    }
+
+    public Item setSpell(Spell spell) {
+        this.spell = spell;
         return this;
     }
 }

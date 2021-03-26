@@ -1,5 +1,6 @@
 package com.dndadventure.domain.dtos;
 
+import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 import com.dndadventure.domain.entities.constants.RarityEnum;
 
@@ -11,10 +12,39 @@ public class WeaponCreateDto {
     private RarityEnum rarity;
     private String weaponType;
     private String attackType;
-    private DiceTypeEnum diceDamage;
-    private Integer bonusDamage;
+    private DiceTypeEnum damageDice;
+    private CharacterStatsEnum damageModifier;
+    private Byte hitChanceBonus;
+    private String spell;
 
     public WeaponCreateDto() {
+    }
+
+    public CharacterStatsEnum getDamageModifier() {
+        return damageModifier;
+    }
+
+    public WeaponCreateDto setDamageModifier(CharacterStatsEnum damageModifier) {
+        this.damageModifier = damageModifier;
+        return this;
+    }
+
+    public Byte getHitChanceBonus() {
+        return hitChanceBonus;
+    }
+
+    public WeaponCreateDto setHitChanceBonus(Byte hitChanceBonus) {
+        this.hitChanceBonus = hitChanceBonus;
+        return this;
+    }
+
+    public String getSpell() {
+        return spell;
+    }
+
+    public WeaponCreateDto setSpell(String spell) {
+        this.spell = spell;
+        return this;
     }
 
     public String getName() {
@@ -80,21 +110,12 @@ public class WeaponCreateDto {
         return this;
     }
 
-    public DiceTypeEnum getDiceDamage() {
-        return diceDamage;
+    public DiceTypeEnum getDamageDice() {
+        return damageDice;
     }
 
-    public WeaponCreateDto setDiceDamage(DiceTypeEnum diceDamage) {
-        this.diceDamage = diceDamage;
-        return this;
-    }
-
-    public Integer getBonusDamage() {
-        return bonusDamage;
-    }
-
-    public WeaponCreateDto setBonusDamage(Integer bonusDamage) {
-        this.bonusDamage = bonusDamage;
+    public WeaponCreateDto setDamageDice(DiceTypeEnum damageDice) {
+        this.damageDice = damageDice;
         return this;
     }
 }

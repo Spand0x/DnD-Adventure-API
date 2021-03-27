@@ -1,6 +1,8 @@
 package com.dndadventure.domain.entities;
 
+import com.dndadventure.domain.entities.items.Armor;
 import com.dndadventure.domain.entities.items.Item;
+import com.dndadventure.domain.entities.items.Weapon;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,8 +31,8 @@ public class Character extends BaseEntity {
     private Set<Spell> spells;
 
     private List<Item> items;
-
-    //todo maybe add inventory
+    private List<Weapon> weapons;
+    private List<Armor> armors;
 
     public Character() {
     }
@@ -191,6 +193,34 @@ public class Character extends BaseEntity {
 
     public Character setItems(List<Item> items) {
         this.items = items;
+        return this;
+    }
+
+    @ManyToMany
+    @JoinTable(
+        name = "characters_weapons",
+        joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
+        inverseJoinColumns = @JoinColumn(name = "weapon_uuid", referencedColumnName = "uuid"))
+    public List<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public Character setWeapons(List<Weapon> weapons) {
+        this.weapons = weapons;
+        return this;
+    }
+
+    @ManyToMany
+    @JoinTable(
+        name = "characters_armors",
+        joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
+        inverseJoinColumns = @JoinColumn(name = "armor_uuid", referencedColumnName = "uuid"))
+    public List<Armor> getArmors() {
+        return armors;
+    }
+
+    public Character setArmors(List<Armor> armors) {
+        this.armors = armors;
         return this;
     }
 }

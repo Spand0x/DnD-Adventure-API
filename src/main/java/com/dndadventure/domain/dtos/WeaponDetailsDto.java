@@ -1,36 +1,40 @@
-package com.dndadventure.domain.entities.items;
+package com.dndadventure.domain.dtos;
 
-import com.dndadventure.domain.entities.BaseEntity;
-import com.dndadventure.domain.entities.Spell;
 import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 import com.dndadventure.domain.entities.constants.RarityEnum;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "weapons")
-public class Weapon extends BaseEntity {
+public class WeaponDetailsDto {
+    private String uuid;
     private String name;
     private String description;
     private Integer gold;
     private Integer quantity;
     private RarityEnum rarity;
-    private Spell spell;
+    private String spell;
     private String weaponType;
     private String attackType;
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
 
-    public Weapon() {
+    public WeaponDetailsDto() {
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public WeaponDetailsDto setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public Weapon setName(String name) {
+    public WeaponDetailsDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -39,7 +43,7 @@ public class Weapon extends BaseEntity {
         return description;
     }
 
-    public Weapon setDescription(String description) {
+    public WeaponDetailsDto setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -48,7 +52,7 @@ public class Weapon extends BaseEntity {
         return gold;
     }
 
-    public Weapon setGold(Integer gold) {
+    public WeaponDetailsDto setGold(Integer gold) {
         this.gold = gold;
         return this;
     }
@@ -57,27 +61,25 @@ public class Weapon extends BaseEntity {
         return quantity;
     }
 
-    public Weapon setQuantity(Integer quantity) {
+    public WeaponDetailsDto setQuantity(Integer quantity) {
         this.quantity = quantity;
         return this;
     }
 
-    @Enumerated(EnumType.STRING)
     public RarityEnum getRarity() {
         return rarity;
     }
 
-    public Weapon setRarity(RarityEnum rarity) {
+    public WeaponDetailsDto setRarity(RarityEnum rarity) {
         this.rarity = rarity;
         return this;
     }
 
-    @OneToOne
-    public Spell getSpell() {
+    public String getSpell() {
         return spell;
     }
 
-    public Weapon setSpell(Spell spell) {
+    public WeaponDetailsDto setSpell(String spell) {
         this.spell = spell;
         return this;
     }
@@ -86,7 +88,7 @@ public class Weapon extends BaseEntity {
         return weaponType;
     }
 
-    public Weapon setWeaponType(String weaponType) {
+    public WeaponDetailsDto setWeaponType(String weaponType) {
         this.weaponType = weaponType;
         return this;
     }
@@ -95,27 +97,25 @@ public class Weapon extends BaseEntity {
         return attackType;
     }
 
-    public Weapon setAttackType(String attackType) {
+    public WeaponDetailsDto setAttackType(String attackType) {
         this.attackType = attackType;
         return this;
     }
 
-    @Enumerated(EnumType.STRING)
     public DiceTypeEnum getDamageDice() {
         return damageDice;
     }
 
-    public Weapon setDamageDice(DiceTypeEnum diceDamage) {
-        this.damageDice = diceDamage;
+    public WeaponDetailsDto setDamageDice(DiceTypeEnum damageDice) {
+        this.damageDice = damageDice;
         return this;
     }
 
-    @Enumerated(EnumType.STRING)
     public CharacterStatsEnum getDamageModifier() {
         return damageModifier;
     }
 
-    public Weapon setDamageModifier(CharacterStatsEnum damageModifier) {
+    public WeaponDetailsDto setDamageModifier(CharacterStatsEnum damageModifier) {
         this.damageModifier = damageModifier;
         return this;
     }
@@ -124,7 +124,7 @@ public class Weapon extends BaseEntity {
         return hitChanceBonus;
     }
 
-    public Weapon setHitChanceBonus(Byte hitChanceBonus) {
+    public WeaponDetailsDto setHitChanceBonus(Byte hitChanceBonus) {
         this.hitChanceBonus = hitChanceBonus;
         return this;
     }

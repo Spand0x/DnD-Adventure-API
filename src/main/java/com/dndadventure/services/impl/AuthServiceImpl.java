@@ -20,7 +20,7 @@ import java.util.*;
 public class AuthServiceImpl implements AuthService {
     private static final String ACCESS_TOKEN_NAME = "access_token";
     private static final String REFRESH_TOKEN_NAME = "refresh_token";
-    private static final int ACCESS_TOKEN_MAX_AGE_MINUTES = 5;
+    private static final int ACCESS_TOKEN_MAX_AGE_MINUTES = 15;
     private static final int REFRESH_TOKEN_MAX_AGE_MINUTES = 61;
     private static final int ONE_MINUTE_SECONDS = 60;
     private static final int ONE_MINUTE_MILLIS = 60_000;

@@ -8,6 +8,8 @@ import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.SpellRepository;
 import com.dndadventure.services.SpellService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +48,13 @@ public class SpellServiceImpl implements SpellService {
     public Spell getSpell(String uuid) {
         return this.spellRepository.findById(uuid)
             .orElseThrow(() -> new NotFoundException("Spell was not found"));
+    }
+
+    @Override
+    public Page<SpellDetailsDto> getAllByPages(String searchValue, Pageable pageable) {
+        String value = searchValue.toLowerCase().trim();
+        Page<Spell> spells = this.spellRepository.findAllContainingValue(value, pageable);
+        return spells.map(s -> this.modelMapper.map(s, SpellDetailsDto.class));
     }
 
 }

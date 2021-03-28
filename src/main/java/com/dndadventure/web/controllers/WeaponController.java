@@ -2,7 +2,6 @@ package com.dndadventure.web.controllers;
 
 import com.dndadventure.domain.dtos.WeaponCreateDto;
 import com.dndadventure.domain.dtos.WeaponDetailsDto;
-import com.dndadventure.domain.entities.items.Weapon;
 import com.dndadventure.services.WeaponService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +24,7 @@ public class WeaponController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('DUNGEON_MASTER')")
+    @PreAuthorize("hasRole('USER')")
     public Page<WeaponDetailsDto> getAllByPages(@RequestParam(name = "search", defaultValue = "") String searchValue,
                                                 Pageable pageable) {
         return this.weaponService.getAllByPages(searchValue, pageable);

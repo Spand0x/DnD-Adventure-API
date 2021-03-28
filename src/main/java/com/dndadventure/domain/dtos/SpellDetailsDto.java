@@ -3,6 +3,7 @@ package com.dndadventure.domain.dtos;
 import com.dndadventure.domain.entities.constants.*;
 
 public class SpellDetailsDto {
+    private String uuid;
     private String name;
     private String description;
     private Byte level;
@@ -21,6 +22,15 @@ public class SpellDetailsDto {
     private DurationUnitEnum durationUnit;
 
     public SpellDetailsDto() {
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public SpellDetailsDto setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 
     public String getName() {

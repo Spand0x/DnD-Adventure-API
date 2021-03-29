@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface SpellRepository extends JpaRepository<Spell, String> {
 
-    @Query("SELECT new com.dndadventure.domain.dtos.SpellNameDto(s.uuid, s.name) FROM Spell s WHERE s.template = true")
+    @Query("SELECT new com.dndadventure.domain.dtos.SpellNameDto(s.uuid, s.name) FROM Spell s")
     List<SpellNameDto> getAllNames();
 
     @Query("SELECT s FROM Spell s " +
@@ -28,7 +28,8 @@ public interface SpellRepository extends JpaRepository<Spell, String> {
         "OR LOWER(s.castingType) LIKE %:value% " +
         "OR LOWER(s.durationType) LIKE %:value% " +
         "OR LOWER(s.duration) LIKE %:value% " +
-        "OR LOWER(s.durationUnit) LIKE %:value% " +
-        "AND s.template = true")
+        "OR LOWER(s.durationUnit) LIKE %:value%")
     Page<Spell> findAllContainingValue(@Param("value") String value, Pageable pageable);
+
+    List<Spell> findAllByName(String name);
 }

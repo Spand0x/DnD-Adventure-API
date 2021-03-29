@@ -14,7 +14,6 @@ public class Weapon extends BaseEntity {
     private String name;
     private String description;
     private Integer gold;
-    private Integer quantity;
     private RarityEnum rarity;
     private Spell spell;
     private String weaponType;
@@ -22,7 +21,6 @@ public class Weapon extends BaseEntity {
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
-    private boolean template;
 
     public Weapon() {
     }
@@ -54,15 +52,6 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public Weapon setQuantity(Integer quantity) {
-        this.quantity = quantity;
-        return this;
-    }
-
     @Enumerated(EnumType.STRING)
     public RarityEnum getRarity() {
         return rarity;
@@ -73,7 +62,7 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.MERGE})
     public Spell getSpell() {
         return spell;
     }
@@ -127,15 +116,6 @@ public class Weapon extends BaseEntity {
 
     public Weapon setHitChanceBonus(Byte hitChanceBonus) {
         this.hitChanceBonus = hitChanceBonus;
-        return this;
-    }
-
-    public boolean isTemplate() {
-        return template;
-    }
-
-    public Weapon setTemplate(boolean template) {
-        this.template = template;
         return this;
     }
 }

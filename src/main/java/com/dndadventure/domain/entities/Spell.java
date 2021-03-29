@@ -13,8 +13,6 @@ public class Spell extends BaseEntity {
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
-    private Byte availableCharges;
-    private Byte maxCharges;
     private String effect;
     private String notes;
 
@@ -25,8 +23,6 @@ public class Spell extends BaseEntity {
     private SpellDurationTypeEnum durationType;
     private Integer duration;
     private DurationUnitEnum durationUnit;
-
-    private boolean template;
 
     public Spell() {
     }
@@ -85,24 +81,6 @@ public class Spell extends BaseEntity {
 
     public Spell setHitChanceBonus(Byte hitChanceBonus) {
         this.hitChanceBonus = hitChanceBonus;
-        return this;
-    }
-
-    public Byte getAvailableCharges() {
-        return availableCharges;
-    }
-
-    public Spell setAvailableCharges(Byte availableCharges) {
-        this.availableCharges = availableCharges;
-        return this;
-    }
-
-    public Byte getMaxCharges() {
-        return maxCharges;
-    }
-
-    public Spell setMaxCharges(Byte maxCharges) {
-        this.maxCharges = maxCharges;
         return this;
     }
 
@@ -174,12 +152,4 @@ public class Spell extends BaseEntity {
         return this;
     }
 
-    public boolean isTemplate() {
-        return template;
-    }
-
-    public Spell setTemplate(boolean template) {
-        this.template = template;
-        return this;
-    }
 }

@@ -12,6 +12,8 @@ public class CharacterClass extends BaseEntity {
     private String description;
     private DiceTypeEnum hitPointsDice;
     private CharacterStatsEnum savingThrowStat;
+    private Double maxSpellCharges;
+    private Double spellChargesPerLevel;
 
     public CharacterClass() {
     }
@@ -52,6 +54,24 @@ public class CharacterClass extends BaseEntity {
 
     public CharacterClass setSavingThrowStat(CharacterStatsEnum savingThrowStat) {
         this.savingThrowStat = savingThrowStat;
+        return this;
+    }
+
+    public Double getMaxSpellCharges() {
+        return maxSpellCharges;
+    }
+
+    public CharacterClass setMaxSpellCharges(Double maxSpellCharges) {
+        this.maxSpellCharges = maxSpellCharges;
+        return this;
+    }
+
+    public Double getSpellChargesPerLevel() {
+        return spellChargesPerLevel;
+    }
+
+    public CharacterClass setSpellChargesPerLevel(Double availableSpellCharges) {
+        this.spellChargesPerLevel = availableSpellCharges;
         return this;
     }
 

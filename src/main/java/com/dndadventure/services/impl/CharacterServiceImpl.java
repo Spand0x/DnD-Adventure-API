@@ -2,6 +2,7 @@ package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.CharacterCreateDto;
 import com.dndadventure.domain.entities.Character;
+import com.dndadventure.domain.entities.CharacterClass;
 import com.dndadventure.domain.entities.StatsModifier;
 import com.dndadventure.domain.entities.User;
 import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
@@ -37,23 +38,11 @@ public class CharacterServiceImpl implements CharacterService {
     public void create(CharacterCreateDto characterCreateDto, User user) {
         Character character = this.modelMapper.map(characterCreateDto, Character.class);
         character.setCharacterRace(this.raceService.getById(characterCreateDto.getRace()));
-        character.setClazz(this.classService.getById(characterCreateDto.getClazz()));
+        CharacterClass characterClass = this.classService.getById(characterCreateDto.getClazz());
 
+        character.setClazz(characterClass);
         character.setSpells(this.spellService.getSpells(characterCreateDto.getSpells()));
-        character.getSpells().forEach(spell -> {
-            spell.setUuid(null);
-            spell.setTemplate(false);
-        });
-
         character.setWeapons(this.weaponService.getWeapons(characterCreateDto.getWeapons()));
-        character.getWeapons().forEach(weapon -> {
-            weapon.setUuid(null);
-            weapon.setTemplate(false);
-            if(weapon.getSpell() != null) {
-                weapon.getSpell().setUuid(null);
-                weapon.getSpell().setTemplate(false);
-            }
-        });
 
         setFirstLevelHealth(character);
         setInitiative(character);
@@ -63,6 +52,12 @@ public class CharacterServiceImpl implements CharacterService {
             .setArmor(10)
             .setUser(user)
             .setCurrentHitPoints(character.getMaxHitPoints());
+
+        if (characterClass.getMaxSpellCharges() != null && characterClass.getMaxSpellCharges() != 0) {
+            character
+                .setMaxSpellCharges(characterClass.getMaxSpellCharges())
+                .setUsedSpellCharges(0.0d);
+        }
 
         this.characterRepository.save(character);
     }

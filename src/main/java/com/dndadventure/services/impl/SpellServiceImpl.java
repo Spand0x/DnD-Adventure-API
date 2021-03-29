@@ -30,8 +30,6 @@ public class SpellServiceImpl implements SpellService {
     @Override
     public void create(SpellCreateDto spellCreateDto) {
         Spell spell = this.modelMapper.map(spellCreateDto, Spell.class);
-        spell.setAvailableCharges(spellCreateDto.getMaxCharges());
-        spell.setTemplate(true);
         this.spellRepository.save(spell);
     }
 

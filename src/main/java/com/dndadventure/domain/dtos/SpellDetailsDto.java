@@ -10,7 +10,6 @@ public class SpellDetailsDto {
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
-    private Byte maxCharges;
     private String effect;
     private String notes;
 
@@ -84,15 +83,6 @@ public class SpellDetailsDto {
 
     public SpellDetailsDto setHitChanceBonus(Byte hitChanceBonus) {
         this.hitChanceBonus = hitChanceBonus;
-        return this;
-    }
-
-    public Byte getMaxCharges() {
-        return maxCharges;
-    }
-
-    public SpellDetailsDto setMaxCharges(Byte maxCharges) {
-        this.maxCharges = maxCharges;
         return this;
     }
 

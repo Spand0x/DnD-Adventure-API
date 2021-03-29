@@ -9,6 +9,8 @@ public class CharacterClassCreateDto {
     private String description;
     private DiceTypeEnum hitPointsDice;
     private CharacterStatsEnum savingThrowStat;
+    private Double maxSpellCharges;
+    private Double spellChargesPerLevel;
 
     public CharacterClassCreateDto() {
     }
@@ -55,6 +57,24 @@ public class CharacterClassCreateDto {
 
     public CharacterClassCreateDto setSavingThrowStat(CharacterStatsEnum savingThrowStat) {
         this.savingThrowStat = savingThrowStat;
+        return this;
+    }
+
+    public Double getMaxSpellCharges() {
+        return maxSpellCharges;
+    }
+
+    public CharacterClassCreateDto setMaxSpellCharges(Double maxSpellCharges) {
+        this.maxSpellCharges = maxSpellCharges;
+        return this;
+    }
+
+    public Double getSpellChargesPerLevel() {
+        return spellChargesPerLevel;
+    }
+
+    public CharacterClassCreateDto setSpellChargesPerLevel(Double spellChargesPerLevel) {
+        this.spellChargesPerLevel = spellChargesPerLevel;
         return this;
     }
 }

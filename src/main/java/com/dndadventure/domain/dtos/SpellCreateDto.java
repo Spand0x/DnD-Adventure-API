@@ -10,7 +10,6 @@ public class SpellCreateDto {
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
-    private Byte maxCharges;
     private String effect;
     private String notes;
     private String range;
@@ -82,15 +81,6 @@ public class SpellCreateDto {
 
     public SpellCreateDto setHitChanceBonus(Byte hitChanceBonus) {
         this.hitChanceBonus = hitChanceBonus;
-        return this;
-    }
-
-    public Byte getMaxCharges() {
-        return maxCharges;
-    }
-
-    public SpellCreateDto setMaxCharges(Byte maxCharges) {
-        this.maxCharges = maxCharges;
         return this;
     }
 

@@ -9,7 +9,6 @@ public class WeaponCreateDto {
     private String name;
     private String description;
     private Integer gold;
-    private Integer quantity;
     private RarityEnum rarity;
     private String weaponType;
     private String attackType;
@@ -81,15 +80,6 @@ public class WeaponCreateDto {
 
     public WeaponCreateDto setGold(Integer gold) {
         this.gold = gold;
-        return this;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public WeaponCreateDto setQuantity(Integer quantity) {
-        this.quantity = quantity;
         return this;
     }
 

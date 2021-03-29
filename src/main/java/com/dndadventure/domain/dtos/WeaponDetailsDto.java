@@ -9,7 +9,6 @@ public class WeaponDetailsDto {
     private String name;
     private String description;
     private Integer gold;
-    private Integer quantity;
     private RarityEnum rarity;
     private SpellNameDto spell;
     private String weaponType;
@@ -54,15 +53,6 @@ public class WeaponDetailsDto {
 
     public WeaponDetailsDto setGold(Integer gold) {
         this.gold = gold;
-        return this;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public WeaponDetailsDto setQuantity(Integer quantity) {
-        this.quantity = quantity;
         return this;
     }
 

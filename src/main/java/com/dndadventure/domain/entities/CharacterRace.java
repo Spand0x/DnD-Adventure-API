@@ -39,7 +39,7 @@ public class CharacterRace extends BaseEntity {
         return this;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JoinColumn(name = "race_uuid",referencedColumnName = "uuid")
     public Set<RaceAdvantage> getAdvantages() {
         return advantages;
@@ -50,7 +50,7 @@ public class CharacterRace extends BaseEntity {
         return this;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JoinColumn(name = "race_uuid", referencedColumnName = "uuid")
     public Set<RaceDisadvantage> getDisadvantages() {
         return disadvantages;

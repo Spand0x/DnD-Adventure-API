@@ -5,7 +5,6 @@ import com.dndadventure.domain.entities.items.Item;
 import com.dndadventure.domain.entities.items.Weapon;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,6 +29,8 @@ public class Character extends BaseEntity {
     private Set<Item> items;
     private Set<Weapon> weapons;
     private Set<Armor> armors;
+    private Double maxSpellCharges;
+    private Double usedSpellCharges;
 
     public Character() {
     }
@@ -157,7 +158,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
         name = "characters_spells",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
@@ -189,7 +190,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
         name = "characters_items",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
@@ -203,7 +204,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
         name = "characters_weapons",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
@@ -217,7 +218,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany
     @JoinTable(
         name = "characters_armors",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
@@ -228,6 +229,24 @@ public class Character extends BaseEntity {
 
     public Character setArmors(Set<Armor> armors) {
         this.armors = armors;
+        return this;
+    }
+
+    public Double getMaxSpellCharges() {
+        return maxSpellCharges;
+    }
+
+    public Character setMaxSpellCharges(Double maxSpellCharges) {
+        this.maxSpellCharges = maxSpellCharges;
+        return this;
+    }
+
+    public Double getUsedSpellCharges() {
+        return usedSpellCharges;
+    }
+
+    public Character setUsedSpellCharges(Double availableSpellCharges) {
+        this.usedSpellCharges = availableSpellCharges;
         return this;
     }
 }

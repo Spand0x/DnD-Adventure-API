@@ -12,7 +12,6 @@ public class CharacterClass extends BaseEntity {
     private String description;
     private DiceTypeEnum hitPointsDice;
     private CharacterStatsEnum savingThrowStat;
-//    private List<Action> actions;
 
     public CharacterClass() {
     }

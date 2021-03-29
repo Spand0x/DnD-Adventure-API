@@ -10,4 +10,6 @@ public interface CharacterRaceService {
     List<CharacterRace> findAll();
     
     void create(CharacterRaceCreateDto characterRaceCreateDto);
+
+    CharacterRace getById(String uuid);
 }

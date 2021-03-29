@@ -2,6 +2,7 @@ package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.CharacterClassCreateDto;
 import com.dndadventure.domain.entities.CharacterClass;
+import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.CharacterClassRepository;
 import com.dndadventure.services.CharacterClassService;
 import org.modelmapper.ModelMapper;
@@ -28,5 +29,11 @@ public class CharacterClassServiceImpl implements CharacterClassService {
     @Override
     public List<CharacterClass> getAll() {
         return this.characterClassRepository.findAll();
+    }
+
+    @Override
+    public CharacterClass getById(String uuid) {
+        return this.characterClassRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException("Character Class not found."));
     }
 }

@@ -3,13 +3,23 @@ package com.dndadventure.domain.dtos;
 import java.util.List;
 
 public class CharacterRaceCreateDto {
+    private String uuid;
     private String name;
     private String description;
     private List<RaceBaseTraitCreateDto> advantages;
     private List<RaceBaseTraitCreateDto> disadvantages;
-    private List<String> modifiers;
+    private List<StatsModifierDto> modifiers;
 
     public CharacterRaceCreateDto() {
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public CharacterRaceCreateDto setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 
     public String getName() {
@@ -48,11 +58,11 @@ public class CharacterRaceCreateDto {
         return this;
     }
 
-    public List<String> getModifiers() {
+    public List<StatsModifierDto> getModifiers() {
         return modifiers;
     }
 
-    public CharacterRaceCreateDto setModifiers(List<String> modifiers) {
+    public CharacterRaceCreateDto setModifiers(List<StatsModifierDto> modifiers) {
         this.modifiers = modifiers;
         return this;
     }

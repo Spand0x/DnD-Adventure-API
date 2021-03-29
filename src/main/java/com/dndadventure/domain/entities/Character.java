@@ -12,6 +12,7 @@ import java.util.Set;
 @Table(name = "characters")
 public class Character extends BaseEntity {
     private String name;
+    private String description;
     private Byte level;
     private Integer armor;
     private Integer maxHitPoints;
@@ -20,19 +21,15 @@ public class Character extends BaseEntity {
     private Integer gold;
     private boolean isDead;
     private String imageUrl;
-
     private CharacterRace characterRace;
     private CharacterClass clazz;
-
-    private User account;
+    private User user;
     private Campaign campaign;
-
     private Set<CharacterStats> stats;
     private Set<Spell> spells;
-
-    private List<Item> items;
-    private List<Weapon> weapons;
-    private List<Armor> armors;
+    private Set<Item> items;
+    private Set<Weapon> weapons;
+    private Set<Armor> armors;
 
     public Character() {
     }
@@ -43,6 +40,16 @@ public class Character extends BaseEntity {
 
     public Character setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Column(columnDefinition = "TEXT")
+    public Character setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -121,12 +128,12 @@ public class Character extends BaseEntity {
     }
 
     @ManyToOne
-    public User getAccount() {
-        return account;
+    public User getUser() {
+        return user;
     }
 
-    public Character setAccount(User account) {
-        this.account = account;
+    public Character setUser(User account) {
+        this.user = account;
         return this;
     }
 
@@ -140,7 +147,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     public Set<CharacterStats> getStats() {
         return stats;
     }
@@ -150,7 +157,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "characters_spells",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
@@ -182,44 +189,44 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "characters_items",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
         inverseJoinColumns = @JoinColumn(name = "item_uuid", referencedColumnName = "uuid"))
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public Character setItems(List<Item> items) {
+    public Character setItems(Set<Item> items) {
         this.items = items;
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "characters_weapons",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
         inverseJoinColumns = @JoinColumn(name = "weapon_uuid", referencedColumnName = "uuid"))
-    public List<Weapon> getWeapons() {
+    public Set<Weapon> getWeapons() {
         return weapons;
     }
 
-    public Character setWeapons(List<Weapon> weapons) {
+    public Character setWeapons(Set<Weapon> weapons) {
         this.weapons = weapons;
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "characters_armors",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
         inverseJoinColumns = @JoinColumn(name = "armor_uuid", referencedColumnName = "uuid"))
-    public List<Armor> getArmors() {
+    public Set<Armor> getArmors() {
         return armors;
     }
 
-    public Character setArmors(List<Armor> armors) {
+    public Character setArmors(Set<Armor> armors) {
         this.armors = armors;
         return this;
     }

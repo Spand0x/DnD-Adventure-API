@@ -11,7 +11,7 @@ public class WeaponDetailsDto {
     private Integer gold;
     private Integer quantity;
     private RarityEnum rarity;
-    private String spell;
+    private SpellNameDto spell;
     private String weaponType;
     private String attackType;
     private DiceTypeEnum damageDice;
@@ -75,11 +75,11 @@ public class WeaponDetailsDto {
         return this;
     }
 
-    public String getSpell() {
+    public SpellNameDto getSpell() {
         return spell;
     }
 
-    public WeaponDetailsDto setSpell(String spell) {
+    public WeaponDetailsDto setSpell(SpellNameDto spell) {
         this.spell = spell;
         return this;
     }

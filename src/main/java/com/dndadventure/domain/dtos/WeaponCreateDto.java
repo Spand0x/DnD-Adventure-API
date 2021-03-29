@@ -5,6 +5,7 @@ import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 import com.dndadventure.domain.entities.constants.RarityEnum;
 
 public class WeaponCreateDto {
+    private String uuid;
     private String name;
     private String description;
     private Integer gold;
@@ -15,9 +16,18 @@ public class WeaponCreateDto {
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
-    private String spell;
+    private SpellNameDto spell;
 
     public WeaponCreateDto() {
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public WeaponCreateDto setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 
     public CharacterStatsEnum getDamageModifier() {
@@ -38,11 +48,11 @@ public class WeaponCreateDto {
         return this;
     }
 
-    public String getSpell() {
+    public SpellNameDto getSpell() {
         return spell;
     }
 
-    public WeaponCreateDto setSpell(String spell) {
+    public WeaponCreateDto setSpell(SpellNameDto spell) {
         this.spell = spell;
         return this;
     }

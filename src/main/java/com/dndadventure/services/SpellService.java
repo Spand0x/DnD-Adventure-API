@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Set;
 
 public interface SpellService {
     void create (SpellCreateDto spellCreateDto);
@@ -19,4 +20,6 @@ public interface SpellService {
     Spell getSpell(String uuid);
 
     Page<SpellDetailsDto> getAllByPages(String searchValue, Pageable pageable);
+
+    Set<Spell> getSpells(List<String> spellUuids);
 }

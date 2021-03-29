@@ -40,11 +40,17 @@ public class CharacterRaceServiceImpl implements CharacterRaceService {
         List<StatsModifier> modifiers = new ArrayList<>();
         characterRaceCreateDto.getModifiers().forEach(modif -> {
             StatsModifier statsModifier =
-                this.modifierRepository.findById(modif)
+                this.modifierRepository.findById(modif.getUuid())
                     .orElseThrow(() -> new NotFoundException("Modifier not found"));
             modifiers.add(statsModifier);
         });
         characterRace.setModifiers(modifiers);
         this.characterRaceRepository.save(characterRace);
+    }
+
+    @Override
+    public CharacterRace getById(String uuid) {
+        return this.characterRaceRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException("Race not found."));
     }
 }

@@ -4,13 +4,22 @@ import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 
 public class CharacterClassCreateDto {
+    private String uuid;
     private String name;
     private String description;
     private DiceTypeEnum hitPointsDice;
-    private CharacterStatsEnum primaryStat;
     private CharacterStatsEnum savingThrowStat;
 
     public CharacterClassCreateDto() {
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public CharacterClassCreateDto setUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
     }
 
     public String getName() {
@@ -37,15 +46,6 @@ public class CharacterClassCreateDto {
 
     public CharacterClassCreateDto setHitPointsDice(DiceTypeEnum hitPointsDice) {
         this.hitPointsDice = hitPointsDice;
-        return this;
-    }
-
-    public CharacterStatsEnum getPrimaryStat() {
-        return primaryStat;
-    }
-
-    public CharacterClassCreateDto setPrimaryStat(CharacterStatsEnum primaryStat) {
-        this.primaryStat = primaryStat;
         return this;
     }
 

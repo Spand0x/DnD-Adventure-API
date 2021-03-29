@@ -9,4 +9,6 @@ public interface CharacterClassService {
     public void create(CharacterClassCreateDto characterClassCreateDto);
 
     List<CharacterClass> getAll();
+
+    CharacterClass getById(String uuid);
 }

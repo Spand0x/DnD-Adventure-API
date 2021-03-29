@@ -26,6 +26,8 @@ public class Spell extends BaseEntity {
     private Integer duration;
     private DurationUnitEnum durationUnit;
 
+    private boolean template;
+
     public Spell() {
     }
 
@@ -169,6 +171,15 @@ public class Spell extends BaseEntity {
 
     public Spell setDurationUnit(DurationUnitEnum durationUnit) {
         this.durationUnit = durationUnit;
+        return this;
+    }
+
+    public boolean isTemplate() {
+        return template;
+    }
+
+    public Spell setTemplate(boolean template) {
+        this.template = template;
         return this;
     }
 }

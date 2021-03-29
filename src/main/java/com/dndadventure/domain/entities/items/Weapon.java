@@ -22,6 +22,7 @@ public class Weapon extends BaseEntity {
     private DiceTypeEnum damageDice;
     private CharacterStatsEnum damageModifier;
     private Byte hitChanceBonus;
+    private boolean template;
 
     public Weapon() {
     }
@@ -72,7 +73,7 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     public Spell getSpell() {
         return spell;
     }
@@ -126,6 +127,15 @@ public class Weapon extends BaseEntity {
 
     public Weapon setHitChanceBonus(Byte hitChanceBonus) {
         this.hitChanceBonus = hitChanceBonus;
+        return this;
+    }
+
+    public boolean isTemplate() {
+        return template;
+    }
+
+    public Weapon setTemplate(boolean template) {
+        this.template = template;
         return this;
     }
 }

@@ -18,7 +18,8 @@ public interface WeaponRepository extends JpaRepository<Weapon, String> {
         "OR LOWER(w.weaponType) LIKE %:value% " +
         "OR LOWER(w.attackType) LIKE %:value% " +
         "OR LOWER(w.damageDice) LIKE %:value% " +
-        "OR LOWER(w.damageModifier) LIKE %:value%")
+        "OR LOWER(w.damageModifier) LIKE %:value% " +
+        "AND w.template = true")
     Page<Weapon> findAllContainingValue(@Param("value") String searchValue, Pageable pageable);
 
 }

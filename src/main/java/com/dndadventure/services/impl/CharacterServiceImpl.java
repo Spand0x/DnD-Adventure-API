@@ -40,10 +40,20 @@ public class CharacterServiceImpl implements CharacterService {
         character.setClazz(this.classService.getById(characterCreateDto.getClazz()));
 
         character.setSpells(this.spellService.getSpells(characterCreateDto.getSpells()));
-        character.getSpells().forEach(spell -> spell.setUuid(null));
+        character.getSpells().forEach(spell -> {
+            spell.setUuid(null);
+            spell.setTemplate(false);
+        });
 
         character.setWeapons(this.weaponService.getWeapons(characterCreateDto.getWeapons()));
-        character.getWeapons().forEach(weapon -> weapon.setUuid(null));
+        character.getWeapons().forEach(weapon -> {
+            weapon.setUuid(null);
+            weapon.setTemplate(false);
+            if(weapon.getSpell() != null) {
+                weapon.getSpell().setUuid(null);
+                weapon.getSpell().setTemplate(false);
+            }
+        });
 
         setFirstLevelHealth(character);
         setInitiative(character);

@@ -2,6 +2,7 @@ package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.UserInfoDto;
 import com.dndadventure.domain.dtos.UserRegisterDto;
+import com.dndadventure.domain.entities.Character;
 import com.dndadventure.domain.entities.User;
 import com.dndadventure.domain.entities.UserRole;
 import com.dndadventure.domain.entities.constants.UserRoleEnum;
@@ -13,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,8 +37,7 @@ public class UserServiceImpl implements UserService {
     public UserInfoDto get(User user) {
         User userEntity = this.userRepository.findById(user.getUuid())
             .orElseThrow(NotFoundException::new);
-        UserInfoDto userInfoDto = this.modelMapper.map(userEntity, UserInfoDto.class);
-        return userInfoDto;
+        return this.modelMapper.map(userEntity, UserInfoDto.class);
     }
 
     @Override
@@ -70,6 +71,15 @@ public class UserServiceImpl implements UserService {
             .setUsername(userRegisterDto.getUsername().toLowerCase())
             .setPassword(passwordEncoder.encode(userRegisterDto.getPassword()));
 
+        this.userRepository.save(user);
+    }
+
+    @Override
+    public void addCharacter(User user, Character character) {
+        if (user.getCharacters() == null) {
+            user.setCharacters(new HashSet<>());
+        }
+        user.getCharacters().add(character);
         this.userRepository.save(user);
     }
 

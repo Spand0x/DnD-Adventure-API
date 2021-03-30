@@ -2,8 +2,8 @@ package com.dndadventure.services;
 
 import com.dndadventure.domain.dtos.UserInfoDto;
 import com.dndadventure.domain.dtos.UserRegisterDto;
+import com.dndadventure.domain.entities.Character;
 import com.dndadventure.domain.entities.User;
-import com.dndadventure.domain.entities.UserPrincipal;
 
 import java.util.List;
 
@@ -14,4 +14,6 @@ public interface UserService {
     List<User> findAll();
 
     void register(UserRegisterDto userRegisterDto);
+
+    void addCharacter(User user, Character character);
 }

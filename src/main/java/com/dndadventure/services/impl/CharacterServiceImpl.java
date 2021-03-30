@@ -11,6 +11,8 @@ import com.dndadventure.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class CharacterServiceImpl implements CharacterService {
     private final CharacterRepository characterRepository;
@@ -18,6 +20,7 @@ public class CharacterServiceImpl implements CharacterService {
     private final CharacterRaceService raceService;
     private final CharacterClassService classService;
     private final WeaponService weaponService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
     public CharacterServiceImpl(CharacterRepository characterRepository,
@@ -25,12 +28,14 @@ public class CharacterServiceImpl implements CharacterService {
                                 CharacterRaceService raceService,
                                 CharacterClassService classService,
                                 WeaponService weaponService,
+                                UserService userService,
                                 ModelMapper modelMapper) {
         this.characterRepository = characterRepository;
         this.spellService = spellService;
         this.raceService = raceService;
         this.classService = classService;
         this.weaponService = weaponService;
+        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
@@ -60,6 +65,7 @@ public class CharacterServiceImpl implements CharacterService {
         }
 
         this.characterRepository.save(character);
+        this.userService.addCharacter(user, character);
     }
 
     private void setFirstLevelHealth(Character character) {

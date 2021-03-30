@@ -20,7 +20,7 @@ public class Character extends BaseEntity {
     private Integer gold;
     private boolean isDead;
     private String imageUrl;
-    private CharacterRace characterRace;
+    private Race race;
     private CharacterClass clazz;
     private User user;
     private Campaign campaign;
@@ -109,12 +109,12 @@ public class Character extends BaseEntity {
     }
 
     @OneToOne
-    public CharacterRace getCharacterRace() {
-        return characterRace;
+    public Race getRace() {
+        return race;
     }
 
-    public Character setCharacterRace(CharacterRace characterRace) {
-        this.characterRace = characterRace;
+    public Character setRace(Race race) {
+        this.race = race;
         return this;
     }
 
@@ -148,7 +148,8 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "stats_id")
     public Set<CharacterStats> getStats() {
         return stats;
     }
@@ -158,7 +159,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "characters_spells",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),
@@ -204,7 +205,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "characters_weapons",
         joinColumns = @JoinColumn(name = "character_uuid", referencedColumnName = "uuid"),

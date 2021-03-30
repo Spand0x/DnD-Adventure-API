@@ -2,7 +2,7 @@ package com.dndadventure.domain.dtos;
 
 import java.util.List;
 
-public class CharacterRaceCreateDto {
+public class RaceCreateDto {
     private String uuid;
     private String name;
     private String description;
@@ -10,14 +10,14 @@ public class CharacterRaceCreateDto {
     private List<RaceBaseTraitCreateDto> disadvantages;
     private List<StatsModifierDto> modifiers;
 
-    public CharacterRaceCreateDto() {
+    public RaceCreateDto() {
     }
 
     public String getUuid() {
         return uuid;
     }
 
-    public CharacterRaceCreateDto setUuid(String uuid) {
+    public RaceCreateDto setUuid(String uuid) {
         this.uuid = uuid;
         return this;
     }
@@ -26,7 +26,7 @@ public class CharacterRaceCreateDto {
         return name;
     }
 
-    public CharacterRaceCreateDto setName(String name) {
+    public RaceCreateDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -35,7 +35,7 @@ public class CharacterRaceCreateDto {
         return description;
     }
 
-    public CharacterRaceCreateDto setDescription(String description) {
+    public RaceCreateDto setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -44,7 +44,7 @@ public class CharacterRaceCreateDto {
         return advantages;
     }
 
-    public CharacterRaceCreateDto setAdvantages(List<RaceBaseTraitCreateDto> advantages) {
+    public RaceCreateDto setAdvantages(List<RaceBaseTraitCreateDto> advantages) {
         this.advantages = advantages;
         return this;
     }
@@ -53,7 +53,7 @@ public class CharacterRaceCreateDto {
         return disadvantages;
     }
 
-    public CharacterRaceCreateDto setDisadvantages(List<RaceBaseTraitCreateDto> disadvantages) {
+    public RaceCreateDto setDisadvantages(List<RaceBaseTraitCreateDto> disadvantages) {
         this.disadvantages = disadvantages;
         return this;
     }
@@ -62,7 +62,7 @@ public class CharacterRaceCreateDto {
         return modifiers;
     }
 
-    public CharacterRaceCreateDto setModifiers(List<StatsModifierDto> modifiers) {
+    public RaceCreateDto setModifiers(List<StatsModifierDto> modifiers) {
         this.modifiers = modifiers;
         return this;
     }

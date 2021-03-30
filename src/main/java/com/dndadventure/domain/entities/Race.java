@@ -10,21 +10,21 @@ import java.util.Set;
 
 @Entity
 @Table(name = "races")
-public class CharacterRace extends BaseEntity {
+public class Race extends BaseEntity {
     private String name;
     private String description;
     private Set<RaceAdvantage> advantages;
     private Set<RaceDisadvantage> disadvantages;
     private List<StatsModifier> modifiers;
 
-    public CharacterRace() {
+    public Race() {
     }
 
     public String getName() {
         return name;
     }
 
-    public CharacterRace setName(String name) {
+    public Race setName(String name) {
         this.name = name;
         return this;
     }
@@ -34,7 +34,7 @@ public class CharacterRace extends BaseEntity {
         return description;
     }
 
-    public CharacterRace setDescription(String description) {
+    public Race setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -45,7 +45,7 @@ public class CharacterRace extends BaseEntity {
         return advantages;
     }
 
-    public CharacterRace setAdvantages(Set<RaceAdvantage> advantages) {
+    public Race setAdvantages(Set<RaceAdvantage> advantages) {
         this.advantages = advantages;
         return this;
     }
@@ -56,7 +56,7 @@ public class CharacterRace extends BaseEntity {
         return disadvantages;
     }
 
-    public CharacterRace setDisadvantages(Set<RaceDisadvantage> disadvantages) {
+    public Race setDisadvantages(Set<RaceDisadvantage> disadvantages) {
         this.disadvantages = disadvantages;
         return this;
     }
@@ -65,13 +65,13 @@ public class CharacterRace extends BaseEntity {
     @JoinTable(
         name = "races_stats_modifiers",
         joinColumns = @JoinColumn(name = "race_uuid", referencedColumnName = "uuid"),
-        inverseJoinColumns = @JoinColumn(name = "class_uuid", referencedColumnName = "uuid")
+        inverseJoinColumns = @JoinColumn(name = "stat_uuid", referencedColumnName = "uuid")
     )
     public List<StatsModifier> getModifiers() {
         return modifiers;
     }
 
-    public CharacterRace setModifiers(List<StatsModifier> modifiers) {
+    public Race setModifiers(List<StatsModifier> modifiers) {
         this.modifiers = modifiers;
         return this;
     }

@@ -20,7 +20,7 @@ public class DbInit {
     private final UserRoleRepository userRoleRepository;
     private final UserRepository userRepository;
     private final StatsModifierRepository statsModifierRepository;
-    private final CharacterRaceRepository raceRepository;
+    private final RaceRepository raceRepository;
     private final CharacterClassRepository classRepository;
     private final SpellRepository spellRepository;
     private final WeaponRepository weaponRepository;
@@ -30,7 +30,7 @@ public class DbInit {
     public DbInit(UserRoleRepository userRoleRepository,
                   UserRepository userRepository,
                   StatsModifierRepository statsModifierRepository,
-                  CharacterRaceRepository raceRepository,
+                  RaceRepository raceRepository,
                   CharacterClassRepository classRepository,
                   SpellRepository spellRepository,
                   WeaponRepository weaponRepository,
@@ -146,21 +146,21 @@ public class DbInit {
                     .setDescription(String.format("Disadvantage description %d for disadvantage with name %d.", (i + 1), (i + 1))));
             }
 
-            CharacterRace elf = new CharacterRace()
+            Race elf = new Race()
                 .setName("Elf")
                 .setDescription("Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.")
                 .setAdvantages(Set.of(raceAdvantages.get(0), raceAdvantages.get(1)))
                 .setDisadvantages(Set.of(raceDisadvantages.get(0), raceDisadvantages.get(1)))
                 .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
 
-            CharacterRace dwarf = new CharacterRace()
+            Race dwarf = new Race()
                 .setName("Dwarf")
                 .setDescription("Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.")
                 .setAdvantages(Set.of(raceAdvantages.get(2), raceAdvantages.get(3)))
                 .setDisadvantages(Set.of(raceDisadvantages.get(2), raceDisadvantages.get(3)))
                 .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
 
-            CharacterRace human = new CharacterRace()
+            Race human = new Race()
                 .setName("Human")
                 .setDescription("Humans are the most adaptable and ambitious people among the common races. " +
                     "Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.")
@@ -168,7 +168,7 @@ public class DbInit {
                 .setDisadvantages(Set.of(raceDisadvantages.get(4), raceDisadvantages.get(5)))
                 .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
 
-            CharacterRace orc = new CharacterRace()
+            Race orc = new Race()
                 .setName("Orc")
                 .setDescription("Half-orcs’ grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, " +
                     "and towering builds make their orcish heritage plain for all to see.")

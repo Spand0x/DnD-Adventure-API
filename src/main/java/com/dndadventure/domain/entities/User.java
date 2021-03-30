@@ -73,6 +73,7 @@ public class User extends BaseEntity{
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
     public Set<Character> getCharacters() {
         return characters;
     }

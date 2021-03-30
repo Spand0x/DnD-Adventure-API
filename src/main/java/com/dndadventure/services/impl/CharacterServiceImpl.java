@@ -1,23 +1,23 @@
 package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.CharacterCreateDto;
+import com.dndadventure.domain.dtos.CharacterViewDto;
 import com.dndadventure.domain.entities.Character;
-import com.dndadventure.domain.entities.CharacterClass;
-import com.dndadventure.domain.entities.StatsModifier;
-import com.dndadventure.domain.entities.User;
+import com.dndadventure.domain.entities.*;
 import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
+import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.CharacterRepository;
 import com.dndadventure.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class CharacterServiceImpl implements CharacterService {
     private final CharacterRepository characterRepository;
     private final SpellService spellService;
-    private final CharacterRaceService raceService;
+    private final RaceService raceService;
     private final CharacterClassService classService;
     private final WeaponService weaponService;
     private final UserService userService;
@@ -25,7 +25,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     public CharacterServiceImpl(CharacterRepository characterRepository,
                                 SpellService spellService,
-                                CharacterRaceService raceService,
+                                RaceService raceService,
                                 CharacterClassService classService,
                                 WeaponService weaponService,
                                 UserService userService,
@@ -42,15 +42,17 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public void create(CharacterCreateDto characterCreateDto, User user) {
         Character character = this.modelMapper.map(characterCreateDto, Character.class);
-        character.setCharacterRace(this.raceService.getById(characterCreateDto.getRace()));
+        Race race = this.raceService.getById(characterCreateDto.getRace());
         CharacterClass characterClass = this.classService.getById(characterCreateDto.getClazz());
 
+        character.setRace(race);
         character.setClazz(characterClass);
         character.setSpells(this.spellService.getSpells(characterCreateDto.getSpells()));
         character.setWeapons(this.weaponService.getWeapons(characterCreateDto.getWeapons()));
 
         setFirstLevelHealth(character);
         setInitiative(character);
+        modifyStats(character, race.getModifiers());
 
         character.setLevel((byte) 1)
             //To be implemented Armor, Campaign.
@@ -68,6 +70,14 @@ public class CharacterServiceImpl implements CharacterService {
         this.userService.addCharacter(user, character);
     }
 
+    @Override
+    public CharacterViewDto get(String uuid) {
+        Character character = this.characterRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException("Character not found!"));
+        CharacterViewDto characterViewDto = this.modelMapper.map(character, CharacterViewDto.class);
+        return characterViewDto;
+    }
+
     private void setFirstLevelHealth(Character character) {
         Integer hitPoints = character.getClazz().getHitPointsDice().value;
 
@@ -75,7 +85,7 @@ public class CharacterServiceImpl implements CharacterService {
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.CONSTITUTION))
             .findFirst().get().getValue();
-        StatsModifier constitutionModifier = character.getCharacterRace().getModifiers()
+        StatsModifier constitutionModifier = character.getRace().getModifiers()
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.CONSTITUTION))
             .findFirst()
@@ -94,7 +104,7 @@ public class CharacterServiceImpl implements CharacterService {
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.DEXTERITY))
             .findFirst().get().getValue();
-        StatsModifier dexterityModifier = character.getCharacterRace().getModifiers()
+        StatsModifier dexterityModifier = character.getRace().getModifiers()
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.DEXTERITY))
             .findFirst()
@@ -107,5 +117,15 @@ public class CharacterServiceImpl implements CharacterService {
 
     private Byte mapStatToModifier(Byte stat) {
         return (byte) Math.floorDiv(stat - 10, 2);
+    }
+
+    private void modifyStats(Character character, List<StatsModifier> modifiers) {
+        character.getStats().forEach(s -> {
+            modifiers.forEach(m -> {
+                if(s.getName().equals(m.getName())) {
+                    s.setValue((byte) (s.getValue() + m.getValue()));
+                }
+            });
+        });
     }
 }

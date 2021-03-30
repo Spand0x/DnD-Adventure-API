@@ -8,6 +8,7 @@ public class CharacterCreateDto {
     private Integer gold;
     private String race;
     private String clazz;
+    private String imageUrl;
     private List<CharacterStatsCreateDto> stats;
     private List<String> weapons;
     private List<String> spells;
@@ -84,6 +85,15 @@ public class CharacterCreateDto {
 
     public CharacterCreateDto setSpells(List<String> spells) {
         this.spells = spells;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public CharacterCreateDto setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }

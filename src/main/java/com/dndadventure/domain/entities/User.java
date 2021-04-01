@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "dnd_users")
 public class User extends BaseEntity{
     private String username;
     private String email;
@@ -46,9 +46,9 @@ public class User extends BaseEntity{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "users_roles",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "uuid"),
-        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "uuid"))
+        name = "dnd_users_roles",
+        joinColumns = @JoinColumn(name = "user_uuid", referencedColumnName = "uuid"),
+        inverseJoinColumns = @JoinColumn(name = "role_uuid", referencedColumnName = "uuid"))
     public Set<UserRole> getUserRoles() {
         return userRoles;
     }
@@ -60,9 +60,9 @@ public class User extends BaseEntity{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "users_campaigns",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "uuid"),
-        inverseJoinColumns = @JoinColumn(name = "campaign_id", referencedColumnName = "uuid"))
+        name = "dnd_users_campaigns",
+        joinColumns = @JoinColumn(name = "user_uuid", referencedColumnName = "uuid"),
+        inverseJoinColumns = @JoinColumn(name = "campaign_uuid", referencedColumnName = "uuid"))
     public Set<Campaign> getCampaigns() {
         return campaigns;
     }
@@ -73,7 +73,7 @@ public class User extends BaseEntity{
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_uuid")
     public Set<Character> getCharacters() {
         return characters;
     }

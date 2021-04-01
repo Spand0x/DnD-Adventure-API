@@ -70,6 +70,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
         boolean firstHeader = true;
         for(String header : headers) {
+            System.out.println(header);
             if (firstHeader) {
                 response.setHeader(HttpHeaders.SET_COOKIE,
                     String.format("%s; %s", header, "SameSite=None"));
@@ -79,5 +80,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.addHeader(HttpHeaders.SET_COOKIE,
                 String.format("%s; %s", header, "SameSite=None"));
         }
+        System.out.println(headers);
     }
 }

@@ -149,7 +149,7 @@ public class Character extends BaseEntity {
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "stats_id")
+    @JoinColumn(name = "stats_uuid")
     public Set<CharacterStats> getStats() {
         return stats;
     }

@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationEntryPoint authenticationEntryPoint;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${dnd_adventure.webapp_url}")
+    @Value("${dndadventures.webapp_url}")
     private String API_URL;
 
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService,

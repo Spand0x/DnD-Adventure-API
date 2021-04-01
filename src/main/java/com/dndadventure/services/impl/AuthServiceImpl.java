@@ -26,11 +26,11 @@ public class AuthServiceImpl implements AuthService {
     private static final int ONE_MINUTE_MILLIS = 60_000;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    @Value("${dnd_adventure.secret}")
+    @Value("${dndadventures.secret}")
     private String SECRET;
-    @Value("${dnd_adventure.secure_token}")
+    @Value("${dndadventures.secure_token}")
     private boolean IS_SECURE;
-    @Value("${dnd_adventure.token_http_only}")
+    @Value("${dndadventures.token_http_only}")
     private boolean HTTP_ONLY;
 
     public AuthServiceImpl(RefreshTokenRepository refreshTokenRepository) {

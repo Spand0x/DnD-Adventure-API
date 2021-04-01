@@ -18,71 +18,35 @@ public class DbInit {
 
 
     private final UserRoleRepository userRoleRepository;
-    private final UserRepository userRepository;
     private final StatsModifierRepository statsModifierRepository;
     private final RaceRepository raceRepository;
     private final CharacterClassRepository classRepository;
     private final SpellRepository spellRepository;
     private final WeaponRepository weaponRepository;
 
-    private final PasswordEncoder encoder;
 
     public DbInit(UserRoleRepository userRoleRepository,
-                  UserRepository userRepository,
                   StatsModifierRepository statsModifierRepository,
                   RaceRepository raceRepository,
                   CharacterClassRepository classRepository,
                   SpellRepository spellRepository,
-                  WeaponRepository weaponRepository,
-                  PasswordEncoder encoder) {
+                  WeaponRepository weaponRepository) {
         this.statsModifierRepository = statsModifierRepository;
         this.userRoleRepository = userRoleRepository;
-        this.userRepository = userRepository;
         this.raceRepository = raceRepository;
         this.classRepository = classRepository;
         this.spellRepository = spellRepository;
         this.weaponRepository = weaponRepository;
-        this.encoder = encoder;
     }
 
     @EventListener
     public void seed(ContextRefreshedEvent event) {
         this.seedUserRoles();
-        this.seedUsers();
         this.seedModifiers();
         this.seedRaces();
         this.seedClasses();
         this.seedSpells();
         this.seedWeapons();
-    }
-
-    private void seedUsers() {
-        if (this.userRepository.count() == 0) {
-            UserRole adminRole = this.userRoleRepository.findByRole(UserRoleEnum.ADMIN).get();
-            UserRole dungeonMasterRole = this.userRoleRepository.findByRole(UserRoleEnum.DUNGEON_MASTER).get();
-            UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER).get();
-
-            //TODO:
-
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(encoder.encode("admin"));
-            admin.setUserRoles(new HashSet<>(List.of(adminRole, dungeonMasterRole, userRole)));
-            this.userRepository.save(admin);
-
-            User dungeonMaster = new User();
-            dungeonMaster.setUsername("dungeonMaster");
-            dungeonMaster.setPassword(encoder.encode("dungeonMaster"));
-            dungeonMaster.setUserRoles(new HashSet<>(List.of(dungeonMasterRole, userRole)));
-            this.userRepository.save(dungeonMaster);
-
-            User user = new User();
-            user.setUsername("user");
-            user.setPassword(encoder.encode("user"));
-            user.setUserRoles(new HashSet<>(List.of(userRole)));
-            this.userRepository.save(user);
-
-        }
     }
 
     private void seedUserRoles() {

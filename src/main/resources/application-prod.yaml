@@ -8,5 +8,5 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
 dndadventures:
-  webapp_url: https://dnd-adventures.herokuapp.com/
+  webapp_url: https://dnd-adventures.herokuapp.com
   secure_token: true

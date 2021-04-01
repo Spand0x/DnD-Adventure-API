@@ -30,7 +30,7 @@ public class Character extends BaseEntity {
     private Set<Weapon> weapons;
     private Set<Armor> armors;
     private Double maxSpellCharges;
-    private Double usedSpellCharges;
+    private Double availableSpellCharges;
 
     public Character() {
     }
@@ -242,12 +242,12 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    public Double getUsedSpellCharges() {
-        return usedSpellCharges;
+    public Double getAvailableSpellCharges() {
+        return availableSpellCharges;
     }
 
-    public Character setUsedSpellCharges(Double availableSpellCharges) {
-        this.usedSpellCharges = availableSpellCharges;
+    public Character setAvailableSpellCharges(Double availableSpellCharges) {
+        this.availableSpellCharges = availableSpellCharges;
         return this;
     }
 }

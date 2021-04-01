@@ -1,6 +1,8 @@
 package com.dndadventure.web.controllers;
 
+import com.dndadventure.domain.UuidDto;
 import com.dndadventure.domain.dtos.CharacterCreateDto;
+import com.dndadventure.domain.dtos.CharacterHpChangeDto;
 import com.dndadventure.domain.dtos.CharacterViewDto;
 import com.dndadventure.domain.entities.User;
 import com.dndadventure.services.CharacterService;
@@ -28,5 +30,17 @@ public class CharacterController {
     @PreAuthorize("hasRole('USER')")
     public CharacterViewDto get(@PathVariable String uuid) {
         return this.characterService.get(uuid);
+    }
+
+    @PostMapping("/change-hp")
+    @PreAuthorize("hasRole('USER')")
+    public void changeHp(@RequestBody CharacterHpChangeDto characterHpChangeDto) {
+        this.characterService.changeHp(characterHpChangeDto);
+    }
+
+    @PostMapping("/cast-spell")
+    @PreAuthorize("hasRole('USER')")
+    public void castSpell(@RequestBody UuidDto characterUuid) {
+        this.characterService.castSpell(characterUuid.getUuid());
     }
 }

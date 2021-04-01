@@ -1,6 +1,7 @@
 package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.CharacterCreateDto;
+import com.dndadventure.domain.dtos.CharacterHpChangeDto;
 import com.dndadventure.domain.dtos.CharacterViewDto;
 import com.dndadventure.domain.entities.Character;
 import com.dndadventure.domain.entities.*;
@@ -63,7 +64,7 @@ public class CharacterServiceImpl implements CharacterService {
         if (characterClass.getMaxSpellCharges() != null && characterClass.getMaxSpellCharges() != 0) {
             character
                 .setMaxSpellCharges(characterClass.getMaxSpellCharges())
-                .setUsedSpellCharges(0.0d);
+                .setAvailableSpellCharges(characterClass.getMaxSpellCharges());
         }
 
         this.characterRepository.save(character);
@@ -76,6 +77,27 @@ public class CharacterServiceImpl implements CharacterService {
             .orElseThrow(() -> new NotFoundException("Character not found!"));
         CharacterViewDto characterViewDto = this.modelMapper.map(character, CharacterViewDto.class);
         return characterViewDto;
+    }
+
+    @Override
+    public void changeHp(CharacterHpChangeDto characterHpChangeDto) {
+        Character character = this.characterRepository.findById(characterHpChangeDto.getUuid())
+            .orElseThrow(() -> new NotFoundException("Character not found!"));
+        character.setCurrentHitPoints(characterHpChangeDto.getCurrentHitPoints());
+        this.characterRepository.save(character);
+    }
+
+    @Override
+    public void castSpell(String characterUuid) {
+        Character character = this.characterRepository.findById(characterUuid)
+            .orElseThrow(() -> new NotFoundException("Character not found!"));
+        if (character.getAvailableSpellCharges() == 0) {
+            return;
+        } else if (character.getAvailableSpellCharges() < 0) {
+            throw new IllegalArgumentException("You don't have available spell charges!");
+        }
+        character.setAvailableSpellCharges(character.getAvailableSpellCharges() - 1);
+        this.characterRepository.save(character);
     }
 
     private void setFirstLevelHealth(Character character) {
@@ -122,7 +144,7 @@ public class CharacterServiceImpl implements CharacterService {
     private void modifyStats(Character character, List<StatsModifier> modifiers) {
         character.getStats().forEach(s -> {
             modifiers.forEach(m -> {
-                if(s.getName().equals(m.getName())) {
+                if (s.getName().equals(m.getName())) {
                     s.setValue((byte) (s.getValue() + m.getValue()));
                 }
             });

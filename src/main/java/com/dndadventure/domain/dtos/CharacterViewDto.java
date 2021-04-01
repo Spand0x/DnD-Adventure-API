@@ -26,7 +26,7 @@ public class CharacterViewDto {
     private Set<Weapon> weapons;
 //    private Set<Armor> armors;
     private Double maxSpellCharges;
-    private Double usedSpellCharges;
+    private Double availableSpellCharges;
 
     public CharacterViewDto() {
     }
@@ -184,12 +184,12 @@ public class CharacterViewDto {
         return this;
     }
 
-    public Double getUsedSpellCharges() {
-        return usedSpellCharges;
+    public Double getAvailableSpellCharges() {
+        return availableSpellCharges;
     }
 
-    public CharacterViewDto setUsedSpellCharges(Double usedSpellCharges) {
-        this.usedSpellCharges = usedSpellCharges;
+    public CharacterViewDto setAvailableSpellCharges(Double availableSpellCharges) {
+        this.availableSpellCharges = availableSpellCharges;
         return this;
     }
 }

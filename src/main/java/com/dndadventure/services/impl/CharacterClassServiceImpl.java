@@ -23,6 +23,10 @@ public class CharacterClassServiceImpl implements CharacterClassService {
     @Override
     public void create(CharacterClassCreateDto characterClassCreateDto) {
         CharacterClass characterClass = this.modelMapper.map(characterClassCreateDto, CharacterClass.class);
+        if (characterClass.getMaxSpellCharges() == null) {
+            characterClass.setMaxSpellCharges(0.0d)
+                .setSpellChargesPerLevel(0.0d);
+        }
         this.characterClassRepository.save(characterClass);
     }
 

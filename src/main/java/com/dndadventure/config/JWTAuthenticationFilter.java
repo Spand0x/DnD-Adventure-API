@@ -58,5 +58,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.addCookie(accessTokenCookie);
         response.addCookie(refreshTokenCookie);
+        response.setHeader("Set-Cookie","SameSite=none");
     }
 }

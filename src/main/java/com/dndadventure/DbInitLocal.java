@@ -41,22 +41,25 @@ public class DbInitLocal {
 
             //TODO:
 
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(encoder.encode("admin"));
-            admin.setUserRoles(new HashSet<>(List.of(adminRole, dungeonMasterRole, userRole)));
+            User admin = new User()
+                .setUsername("admin")
+                .setEmail("admin@admin")
+                .setPassword(encoder.encode("admin"))
+                .setUserRoles(new HashSet<>(List.of(adminRole, dungeonMasterRole, userRole)));
             this.userRepository.save(admin);
 
-            User dungeonMaster = new User();
-            dungeonMaster.setUsername("dungeonMaster");
-            dungeonMaster.setPassword(encoder.encode("dungeonMaster"));
-            dungeonMaster.setUserRoles(new HashSet<>(List.of(dungeonMasterRole, userRole)));
+            User dungeonMaster = new User()
+                .setUsername("dungeonMaster")
+                .setEmail("dungeon@dungeon")
+                .setPassword(encoder.encode("dungeonMaster"))
+                .setUserRoles(new HashSet<>(List.of(dungeonMasterRole, userRole)));
             this.userRepository.save(dungeonMaster);
 
-            User user = new User();
-            user.setUsername("user");
-            user.setPassword(encoder.encode("user"));
-            user.setUserRoles(new HashSet<>(List.of(userRole)));
+            User user = new User()
+                .setUsername("user")
+                .setEmail("user@user")
+                .setPassword(encoder.encode("user"))
+                .setUserRoles(new HashSet<>(List.of(userRole)));
             this.userRepository.save(user);
 
         }

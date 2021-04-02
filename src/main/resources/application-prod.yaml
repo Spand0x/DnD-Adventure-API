@@ -11,3 +11,4 @@ dndadventures:
   webapp_url: https://dnd-adventures.herokuapp.com
   secure_token: true
   token_http_only: false
+  is_prod: true

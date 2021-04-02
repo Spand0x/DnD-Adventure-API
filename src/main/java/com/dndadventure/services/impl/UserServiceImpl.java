@@ -51,19 +51,19 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Passwords does not match");
         }
 
-        if(userRegisterDto.getUsername().length() < 3) {
+        if (userRegisterDto.getUsername().length() < 3) {
             throw new IllegalArgumentException("Username should be more then 3 symbols!");
         }
 
-        if(userRegisterDto.getPassword().length() < 6) {
+        if (userRegisterDto.getPassword().length() < 6) {
             throw new IllegalArgumentException("Password should be more then 6 symbols!");
         }
 
-        if (this.userRepository.findByUsernameOrEmail(userRegisterDto.getUsername(), userRegisterDto.getEmail()).isPresent()){
+        if (this.userRepository.findByUsernameOrEmail(userRegisterDto.getUsername(), userRegisterDto.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this username / email already exists.");
         }
-            UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER)
-                .orElseThrow(() -> new NotFoundException("User Role was not found."));
+        UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER)
+            .orElseThrow(() -> new NotFoundException("User Role was not found."));
 
         User user = new User()
             .setUserRoles(Set.of(userRole))

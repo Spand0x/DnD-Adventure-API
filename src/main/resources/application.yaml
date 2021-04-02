@@ -25,3 +25,4 @@ dndadventures:
   secret: SECRET
   secure_token: false
   token_http_only: true
+  is_prod: false

@@ -4,9 +4,6 @@ import com.dndadventure.domain.entities.User;
 import com.dndadventure.domain.entities.UserRole;
 import com.dndadventure.repositories.UserRepository;
 import com.dndadventure.services.AuthService;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,8 +53,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             authenticationToken = this.getAuthentication(optionalCookie.get());
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-            chain.doFilter(request,response);
-        } catch (ParseException e ){
+            chain.doFilter(request, response);
+        } catch (ParseException e) {
             response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
         }
     }

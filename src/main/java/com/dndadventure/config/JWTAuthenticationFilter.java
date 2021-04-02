@@ -4,14 +4,12 @@ import com.dndadventure.domain.entities.User;
 import com.dndadventure.domain.entities.UserPrincipal;
 import com.dndadventure.services.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.autoconfigure.session.DefaultCookieSerializerCustomizer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -26,9 +24,12 @@ import java.util.Collections;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final boolean isProd;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   boolean isProd) {
         this.authenticationManager = authenticationManager;
+        this.isProd = isProd;
     }
 
     @Override
@@ -63,13 +64,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addCookie(accessTokenCookie);
         response.addCookie(refreshTokenCookie);
 
-        addSameSiteCookieAttribute(response);
+        if (isProd) {
+            addSameSiteCookieAttribute(response);
+        }
     }
 
     private void addSameSiteCookieAttribute(HttpServletResponse response) {
         Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
         boolean firstHeader = true;
-        for(String header : headers) {
+        for (String header : headers) {
             System.out.println(header);
             if (firstHeader) {
                 response.setHeader(HttpHeaders.SET_COOKIE,

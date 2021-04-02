@@ -33,6 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${dndadventures.webapp_url}")
     private String API_URL;
 
+    @Value("${dndadventures.is_prod}")
+    private boolean isProd;
+
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService,
                              AuthenticationEntryPoint authenticationEntryPoint,
                              PasswordEncoder passwordEncoder) {
@@ -52,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.OPTIONS).permitAll()
             .anyRequest().authenticated()
             .and()
-            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+            .addFilter(new JWTAuthenticationFilter(authenticationManager(), isProd))
             .addFilter(new JWTAuthorizationFilter(authenticationManager()))
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()

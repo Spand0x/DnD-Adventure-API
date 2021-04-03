@@ -1,14 +1,14 @@
 package com.dndadventure.domain.dtos;
 
-import com.dndadventure.domain.entities.UserRole;
+import com.dndadventure.domain.entities.constants.UserRoleEnum;
 
 import java.util.Set;
 
 public class UserInfoDto {
     private String username;
     private String email;
-    private Set<UserRole> userRoles;
-//    private Set<Campaign> campaigns;
+    private Set<UserRoleEnum> roles;
+    //    private Set<Campaign> campaigns;
     private Set<CharacterBaseInfoDto> characters;
 
     public UserInfoDto() {
@@ -32,16 +32,16 @@ public class UserInfoDto {
         return this;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
+    public Set<UserRoleEnum> getRoles() {
+        return roles;
     }
 
-    public UserInfoDto setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public UserInfoDto setRoles(Set<UserRoleEnum> roles) {
+        this.roles = roles;
         return this;
     }
 
-//    public Set<Campaign> getCampaigns() {
+    //    public Set<Campaign> getCampaigns() {
 //        return campaigns;
 //    }
 //

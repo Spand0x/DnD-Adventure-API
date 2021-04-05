@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "dnd_users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     private String username;
     private String email;
     private String password;
@@ -16,6 +16,7 @@ public class User extends BaseEntity{
     public User() {
     }
 
+    @Column(nullable = false)
     public String getUsername() {
         return username;
     }
@@ -25,6 +26,7 @@ public class User extends BaseEntity{
         return this;
     }
 
+    @Column(nullable = false)
     public String getEmail() {
         return email;
     }
@@ -34,6 +36,7 @@ public class User extends BaseEntity{
         return this;
     }
 
+    @Column(nullable = false)
     public String getPassword() {
         return password;
     }

@@ -2,6 +2,10 @@ package com.dndadventure.domain.dtos;
 
 import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CharacterClassCreateDto {
     private String uuid;
@@ -24,6 +28,8 @@ public class CharacterClassCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Name cannot be empty.")
+    @Length(min = 3, message = "Name must contain at least 3 character.")
     public String getName() {
         return name;
     }
@@ -33,6 +39,8 @@ public class CharacterClassCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Description cannot be empty.")
+    @Length(min = 5, message = "Description must contain at least 5 character.")
     public String getDescription() {
         return description;
     }
@@ -42,6 +50,7 @@ public class CharacterClassCreateDto {
         return this;
     }
 
+    @NotNull(message = "Hit Points Dice cannot be empty.")
     public DiceTypeEnum getHitPointsDice() {
         return hitPointsDice;
     }
@@ -51,6 +60,7 @@ public class CharacterClassCreateDto {
         return this;
     }
 
+    @NotNull(message = "Saving Throw Stat cannot be empty.")
     public CharacterStatsEnum getSavingThrowStat() {
         return savingThrowStat;
     }

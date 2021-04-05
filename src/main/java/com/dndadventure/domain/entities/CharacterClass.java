@@ -18,6 +18,7 @@ public class CharacterClass extends BaseEntity {
     public CharacterClass() {
     }
 
+    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -38,6 +39,7 @@ public class CharacterClass extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public DiceTypeEnum getHitPointsDice() {
         return hitPointsDice;
     }
@@ -48,6 +50,7 @@ public class CharacterClass extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public CharacterStatsEnum getSavingThrowStat() {
         return savingThrowStat;
     }

@@ -1,5 +1,9 @@
 package com.dndadventure.domain.dtos;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class UserRegisterDto {
     private String email;
     private String username;
@@ -9,6 +13,7 @@ public class UserRegisterDto {
     public UserRegisterDto() {
     }
 
+    @Email(message = "Email is not valid")
     public String getEmail() {
         return email;
     }
@@ -18,6 +23,7 @@ public class UserRegisterDto {
         return this;
     }
 
+    @NotBlank(message = "Username cannot be empty.")
     public String getUsername() {
         return username;
     }
@@ -27,6 +33,7 @@ public class UserRegisterDto {
         return this;
     }
 
+    @NotBlank(message = "Password cannot be empty.")
     public String getPassword() {
         return password;
     }
@@ -36,6 +43,7 @@ public class UserRegisterDto {
         return this;
     }
 
+    @NotBlank(message = "Repeat Password cannot be empty.")
     public String getRepPassword() {
         return repPassword;
     }

@@ -2,10 +2,10 @@ package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.RaceCreateDto;
 import com.dndadventure.domain.entities.Race;
-import com.dndadventure.domain.entities.StatsModifier;
+import com.dndadventure.domain.entities.StatModifier;
 import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.RaceRepository;
-import com.dndadventure.repositories.StatsModifierRepository;
+import com.dndadventure.repositories.StatModifierRepository;
 import com.dndadventure.services.RaceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import java.util.List;
 @Service
 public class RaceServiceImpl implements RaceService {
     private final RaceRepository raceRepository;
-    private final StatsModifierRepository modifierRepository;
+    private final StatModifierRepository modifierRepository;
     private final ModelMapper modelMapper;
 
     public RaceServiceImpl(RaceRepository raceRepository,
-                           StatsModifierRepository modifierRepository,
+                           StatModifierRepository modifierRepository,
                            ModelMapper modelMapper) {
         this.raceRepository = raceRepository;
         this.modifierRepository = modifierRepository;
@@ -37,12 +37,12 @@ public class RaceServiceImpl implements RaceService {
     @Override
     public void create(RaceCreateDto raceCreateDto) {
         Race race = this.modelMapper.map(raceCreateDto, Race.class);
-        List<StatsModifier> modifiers = new ArrayList<>();
+        List<StatModifier> modifiers = new ArrayList<>();
         raceCreateDto.getModifiers().forEach(modif -> {
-            StatsModifier statsModifier =
+            StatModifier statModifier =
                 this.modifierRepository.findById(modif.getUuid())
                     .orElseThrow(() -> new NotFoundException("Modifier not found"));
-            modifiers.add(statsModifier);
+            modifiers.add(statModifier);
         });
         race.setModifiers(modifiers);
         this.raceRepository.save(race);

@@ -1,14 +1,13 @@
 package com.dndadventure;
 
 import com.dndadventure.domain.entities.*;
-import com.dndadventure.domain.entities.RaceTraits.RaceAdvantage;
-import com.dndadventure.domain.entities.RaceTraits.RaceDisadvantage;
+import com.dndadventure.domain.entities.raceTraits.RaceAdvantage;
+import com.dndadventure.domain.entities.raceTraits.RaceDisadvantage;
 import com.dndadventure.domain.entities.constants.*;
-import com.dndadventure.domain.entities.items.Weapon;
+import com.dndadventure.domain.entities.Weapon;
 import com.dndadventure.repositories.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -18,7 +17,7 @@ public class DbInit {
 
 
     private final UserRoleRepository userRoleRepository;
-    private final StatsModifierRepository statsModifierRepository;
+    private final StatModifierRepository statModifierRepository;
     private final RaceRepository raceRepository;
     private final CharacterClassRepository classRepository;
     private final SpellRepository spellRepository;
@@ -26,12 +25,12 @@ public class DbInit {
 
 
     public DbInit(UserRoleRepository userRoleRepository,
-                  StatsModifierRepository statsModifierRepository,
+                  StatModifierRepository statModifierRepository,
                   RaceRepository raceRepository,
                   CharacterClassRepository classRepository,
                   SpellRepository spellRepository,
                   WeaponRepository weaponRepository) {
-        this.statsModifierRepository = statsModifierRepository;
+        this.statModifierRepository = statModifierRepository;
         this.userRoleRepository = userRoleRepository;
         this.raceRepository = raceRepository;
         this.classRepository = classRepository;
@@ -62,41 +61,41 @@ public class DbInit {
     }
 
     private void seedModifiers() {
-        if (this.statsModifierRepository.count() == 0) {
-            StatsModifier strModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.STRENGTH).setValue((byte) 2);
-            StatsModifier intModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.INTELLIGENCE).setValue((byte) 2);
-            StatsModifier dexModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.DEXTERITY).setValue((byte) 2);
-            StatsModifier wisModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.WISDOM).setValue((byte) 2);
-            StatsModifier charModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.CHARISMA).setValue((byte) 2);
-            StatsModifier conModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.CONSTITUTION).setValue((byte) 2);
+        if (this.statModifierRepository.count() == 0) {
+            StatModifier strModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.STRENGTH).setValue((byte) 2);
+            StatModifier intModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.INTELLIGENCE).setValue((byte) 2);
+            StatModifier dexModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.DEXTERITY).setValue((byte) 2);
+            StatModifier wisModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.WISDOM).setValue((byte) 2);
+            StatModifier charModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.CHARISMA).setValue((byte) 2);
+            StatModifier conModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.CONSTITUTION).setValue((byte) 2);
 
-            StatsModifier strNegModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.STRENGTH).setValue((byte) -2);
-            StatsModifier intNegModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.INTELLIGENCE).setValue((byte) -2);
-            StatsModifier dexNegModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.DEXTERITY).setValue((byte) -2);
-            StatsModifier wisNegModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.WISDOM).setValue((byte) -2);
-            StatsModifier charNegModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.CHARISMA).setValue((byte) -2);
-            StatsModifier conNegModifier = (StatsModifier) new StatsModifier().setName(CharacterStatsEnum.CONSTITUTION).setValue((byte) -2);
+            StatModifier strNegModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.STRENGTH).setValue((byte) -2);
+            StatModifier intNegModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.INTELLIGENCE).setValue((byte) -2);
+            StatModifier dexNegModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.DEXTERITY).setValue((byte) -2);
+            StatModifier wisNegModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.WISDOM).setValue((byte) -2);
+            StatModifier charNegModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.CHARISMA).setValue((byte) -2);
+            StatModifier conNegModifier = (StatModifier) new StatModifier().setName(CharacterStatsEnum.CONSTITUTION).setValue((byte) -2);
 
-            this.statsModifierRepository.save(strModifier);
-            this.statsModifierRepository.save(intModifier);
-            this.statsModifierRepository.save(dexModifier);
-            this.statsModifierRepository.save(wisModifier);
-            this.statsModifierRepository.save(charModifier);
-            this.statsModifierRepository.save(conModifier);
+            this.statModifierRepository.save(strModifier);
+            this.statModifierRepository.save(intModifier);
+            this.statModifierRepository.save(dexModifier);
+            this.statModifierRepository.save(wisModifier);
+            this.statModifierRepository.save(charModifier);
+            this.statModifierRepository.save(conModifier);
 
-            this.statsModifierRepository.save(strNegModifier);
-            this.statsModifierRepository.save(intNegModifier);
-            this.statsModifierRepository.save(dexNegModifier);
-            this.statsModifierRepository.save(wisNegModifier);
-            this.statsModifierRepository.save(charNegModifier);
-            this.statsModifierRepository.save(conNegModifier);
+            this.statModifierRepository.save(strNegModifier);
+            this.statModifierRepository.save(intNegModifier);
+            this.statModifierRepository.save(dexNegModifier);
+            this.statModifierRepository.save(wisNegModifier);
+            this.statModifierRepository.save(charNegModifier);
+            this.statModifierRepository.save(conNegModifier);
         }
     }
 
     private void seedRaces() {
         if (this.raceRepository.count() == 0) {
-            List<StatsModifier> statsModifiers = this.statsModifierRepository.findAll();
-            int statsSize = statsModifiers.size();
+            List<StatModifier> statModifiers = this.statModifierRepository.findAll();
+            int statsSize = statModifiers.size();
 
             List<RaceAdvantage> raceAdvantages = new ArrayList<>();
             List<RaceDisadvantage> raceDisadvantages = new ArrayList<>();
@@ -115,14 +114,14 @@ public class DbInit {
                 .setDescription("Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.")
                 .setAdvantages(Set.of(raceAdvantages.get(0), raceAdvantages.get(1)))
                 .setDisadvantages(Set.of(raceDisadvantages.get(0), raceDisadvantages.get(1)))
-                .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
+                .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race dwarf = new Race()
                 .setName("Dwarf")
                 .setDescription("Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.")
                 .setAdvantages(Set.of(raceAdvantages.get(2), raceAdvantages.get(3)))
                 .setDisadvantages(Set.of(raceDisadvantages.get(2), raceDisadvantages.get(3)))
-                .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
+                .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race human = new Race()
                 .setName("Human")
@@ -130,7 +129,7 @@ public class DbInit {
                     "Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.")
                 .setAdvantages(Set.of(raceAdvantages.get(4), raceAdvantages.get(5)))
                 .setDisadvantages(Set.of(raceDisadvantages.get(4), raceDisadvantages.get(5)))
-                .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
+                .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race orc = new Race()
                 .setName("Orc")
@@ -138,7 +137,7 @@ public class DbInit {
                     "and towering builds make their orcish heritage plain for all to see.")
                 .setAdvantages(Set.of(raceAdvantages.get(6), raceAdvantages.get(7)))
                 .setDisadvantages(Set.of(raceDisadvantages.get(6), raceDisadvantages.get(7)))
-                .setModifiers(List.of(statsModifiers.get(randomNumber(statsSize)), statsModifiers.get(randomNumber(statsSize))));
+                .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             this.raceRepository.save(elf);
             this.raceRepository.save(dwarf);

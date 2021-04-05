@@ -1,7 +1,7 @@
 package com.dndadventure.domain.dtos;
 
 import com.dndadventure.domain.entities.*;
-import com.dndadventure.domain.entities.items.Weapon;
+import com.dndadventure.domain.entities.Weapon;
 
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public class CharacterViewDto {
     private Race race;
     private CharacterClass clazz;
 //    private Campaign campaign;
-    private Set<CharacterStats> stats;
+    private Set<CharacterStat> stats;
     private Set<Spell> spells;
 //    private Set<Item> items;
     private Set<Weapon> weapons;
@@ -148,11 +148,11 @@ public class CharacterViewDto {
         return this;
     }
 
-    public Set<CharacterStats> getStats() {
+    public Set<CharacterStat> getStats() {
         return stats;
     }
 
-    public CharacterViewDto setStats(Set<CharacterStats> stats) {
+    public CharacterViewDto setStats(Set<CharacterStat> stats) {
         this.stats = stats;
         return this;
     }

@@ -1,6 +1,12 @@
 package com.dndadventure.domain.dtos;
 
 import com.dndadventure.domain.entities.constants.*;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class SpellCreateDto {
     private String uuid;
@@ -30,6 +36,8 @@ public class SpellCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Name cannot be empty.")
+    @Length(min = 3, message = "Name must contain at least 3 character")
     public String getName() {
         return name;
     }
@@ -39,6 +47,8 @@ public class SpellCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Description cannot be empty.")
+    @Length(min = 5, message = "Name must contain at least 5 character")
     public String getDescription() {
         return description;
     }
@@ -48,6 +58,8 @@ public class SpellCreateDto {
         return this;
     }
 
+    @Min(value = 1, message = "Level must be between 1 and 10")
+    @Max(value = 10, message = "Level must be between 1 and 10")
     public Byte getLevel() {
         return level;
     }
@@ -102,6 +114,7 @@ public class SpellCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Range cannot be empty.")
     public String getRange() {
         return range;
     }
@@ -111,6 +124,7 @@ public class SpellCreateDto {
         return this;
     }
 
+    @NotNull(message = "Casting type cannot be empty.")
     public SpellCastingTypeEnum getCastingType() {
         return castingType;
     }
@@ -120,6 +134,7 @@ public class SpellCreateDto {
         return this;
     }
 
+    @NotNull(message = "Duration Type cannot be empty.")
     public SpellDurationTypeEnum getDurationType() {
         return durationType;
     }

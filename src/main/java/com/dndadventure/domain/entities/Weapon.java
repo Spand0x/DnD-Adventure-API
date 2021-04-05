@@ -1,12 +1,14 @@
-package com.dndadventure.domain.entities.items;
+package com.dndadventure.domain.entities;
 
-import com.dndadventure.domain.entities.BaseEntity;
-import com.dndadventure.domain.entities.Spell;
 import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
 import com.dndadventure.domain.entities.constants.RarityEnum;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "weapons")
@@ -25,6 +27,7 @@ public class Weapon extends BaseEntity {
     public Weapon() {
     }
 
+    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -34,6 +37,7 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -43,6 +47,7 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Integer getGold() {
         return gold;
     }
@@ -53,6 +58,7 @@ public class Weapon extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public RarityEnum getRarity() {
         return rarity;
     }
@@ -72,6 +78,7 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public String getWeaponType() {
         return weaponType;
     }
@@ -81,6 +88,7 @@ public class Weapon extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public String getAttackType() {
         return attackType;
     }
@@ -91,6 +99,7 @@ public class Weapon extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public DiceTypeEnum getDamageDice() {
         return damageDice;
     }

@@ -1,5 +1,8 @@
 package com.dndadventure.domain.dtos;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class RaceCreateDto {
@@ -8,7 +11,7 @@ public class RaceCreateDto {
     private String description;
     private List<RaceBaseTraitCreateDto> advantages;
     private List<RaceBaseTraitCreateDto> disadvantages;
-    private List<StatsModifierDto> modifiers;
+    private List<StatModifierDto> modifiers;
 
     public RaceCreateDto() {
     }
@@ -22,6 +25,8 @@ public class RaceCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Name cannot be empty.")
+    @Length(min = 3, message = "Name must contain at least 3 characters.")
     public String getName() {
         return name;
     }
@@ -31,6 +36,8 @@ public class RaceCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Description cannot be empty.")
+    @Length(min = 5, message = "Description must contain at least 5 characters.")
     public String getDescription() {
         return description;
     }
@@ -58,11 +65,11 @@ public class RaceCreateDto {
         return this;
     }
 
-    public List<StatsModifierDto> getModifiers() {
+    public List<StatModifierDto> getModifiers() {
         return modifiers;
     }
 
-    public RaceCreateDto setModifiers(List<StatsModifierDto> modifiers) {
+    public RaceCreateDto setModifiers(List<StatModifierDto> modifiers) {
         this.modifiers = modifiers;
         return this;
     }

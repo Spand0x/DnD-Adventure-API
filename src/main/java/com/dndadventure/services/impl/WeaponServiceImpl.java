@@ -51,7 +51,6 @@ public class WeaponServiceImpl implements WeaponService {
             if (w.getSpell() != null) {
                 weaponDetailsDto.setSpell(this.modelMapper.map(w.getSpell(), SpellNameDto.class));
             }
-            // TO BE FIXED
             return weaponDetailsDto;
         });
     }

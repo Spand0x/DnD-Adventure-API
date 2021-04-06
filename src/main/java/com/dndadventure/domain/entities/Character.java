@@ -2,7 +2,6 @@ package com.dndadventure.domain.entities;
 
 import com.dndadventure.domain.entities.items.Armor;
 import com.dndadventure.domain.entities.items.Item;
-import com.dndadventure.domain.entities.items.Weapon;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -24,7 +23,7 @@ public class Character extends BaseEntity {
     private CharacterClass clazz;
     private User user;
     private Campaign campaign;
-    private Set<CharacterStats> stats;
+    private Set<CharacterStat> stats;
     private Set<Spell> spells;
     private Set<Item> items;
     private Set<Weapon> weapons;
@@ -35,6 +34,7 @@ public class Character extends BaseEntity {
     public Character() {
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -54,6 +54,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Byte getLevel() {
         return level;
     }
@@ -63,6 +64,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Integer getArmor() {
         return armor;
     }
@@ -72,6 +74,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Integer getMaxHitPoints() {
         return maxHitPoints;
     }
@@ -81,6 +84,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Integer getCurrentHitPoints() {
         return currentHitPoints;
     }
@@ -90,6 +94,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Byte getInitiative() {
         return initiative;
     }
@@ -99,6 +104,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public boolean isDead() {
         return isDead;
     }
@@ -108,7 +114,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToOne
+    @OneToOne(optional = false)
     public Race getRace() {
         return race;
     }
@@ -118,7 +124,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToOne
+    @OneToOne(optional = false)
     public CharacterClass getClazz() {
         return clazz;
     }
@@ -128,7 +134,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     public User getUser() {
         return user;
     }
@@ -150,11 +156,11 @@ public class Character extends BaseEntity {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "stats_uuid")
-    public Set<CharacterStats> getStats() {
+    public Set<CharacterStat> getStats() {
         return stats;
     }
 
-    public Character setStats(Set<CharacterStats> stats) {
+    public Character setStats(Set<CharacterStat> stats) {
         this.stats = stats;
         return this;
     }
@@ -173,6 +179,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Integer getGold() {
         return gold;
     }

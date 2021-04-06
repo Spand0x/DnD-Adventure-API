@@ -1,5 +1,7 @@
 package com.dndadventure.services.impl;
 
+import com.dndadventure.domain.dtos.UserChangeRoleDto;
+import com.dndadventure.domain.dtos.UserDetailsDto;
 import com.dndadventure.domain.dtos.UserInfoDto;
 import com.dndadventure.domain.dtos.UserRegisterDto;
 import com.dndadventure.domain.entities.Character;
@@ -11,6 +13,8 @@ import com.dndadventure.repositories.UserRepository;
 import com.dndadventure.repositories.UserRoleRepository;
 import com.dndadventure.services.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,19 +61,19 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Passwords does not match");
         }
 
-        if(userRegisterDto.getUsername().length() < 3) {
+        if (userRegisterDto.getUsername().length() < 3) {
             throw new IllegalArgumentException("Username should be more then 3 symbols!");
         }
 
-        if(userRegisterDto.getPassword().length() < 6) {
+        if (userRegisterDto.getPassword().length() < 6) {
             throw new IllegalArgumentException("Password should be more then 6 symbols!");
         }
 
-        if (this.userRepository.findByUsernameOrEmail(userRegisterDto.getUsername(), userRegisterDto.getEmail()).isPresent()){
+        if (this.userRepository.findByUsernameOrEmail(userRegisterDto.getUsername(), userRegisterDto.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this username / email already exists.");
         }
-            UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER)
-                .orElseThrow(() -> new NotFoundException("User Role was not found."));
+        UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER)
+            .orElseThrow(() -> new NotFoundException("User Role was not found."));
 
         User user = new User()
             .setUserRoles(Set.of(userRole))
@@ -87,6 +91,50 @@ public class UserServiceImpl implements UserService {
         }
         user.getCharacters().add(character);
         this.userRepository.save(user);
+    }
+
+    @Override
+    public Page<UserDetailsDto> getAllByPages(String searchValue, Pageable pageable) {
+        String value = searchValue.toLowerCase().trim();
+        Page<User> users = this.userRepository.findAllContainingValue(value, pageable);
+        return users.map(u -> {
+            UserDetailsDto userDetailsDto = this.modelMapper.map(u, UserDetailsDto.class);
+            userDetailsDto.setRoles(u.getUserRoles()
+                .stream()
+                .map(UserRole::getRole)
+                .collect(Collectors.toSet()));
+            return userDetailsDto;
+        });
+    }
+
+    @Override
+    public void changeRole(UserChangeRoleDto userChangeRoleDto) {
+        User user = this.userRepository.findById(userChangeRoleDto.getUuid())
+            .orElseThrow(() -> new NotFoundException("User was not found"));
+        Set<UserRole> roles = new HashSet<>();
+        switch (userChangeRoleDto.getNewRole()) {
+            case USER:
+                roles.add(getUserRole(UserRoleEnum.USER));
+                break;
+            case DUNGEON_MASTER:
+                roles.add(getUserRole(UserRoleEnum.USER));
+                roles.add(getUserRole(UserRoleEnum.DUNGEON_MASTER));
+                break;
+            case ADMIN:
+                roles.add(getUserRole(UserRoleEnum.USER));
+                roles.add(getUserRole(UserRoleEnum.DUNGEON_MASTER));
+                roles.add(getUserRole(UserRoleEnum.ADMIN));
+                break;
+            default:
+                throw new NotFoundException("Role was not found.");
+        }
+        user.setUserRoles(roles);
+        this.userRepository.save(user);
+    }
+
+    private UserRole getUserRole(UserRoleEnum roleEnum) {
+        return this.userRoleRepository.findByRole(roleEnum)
+            .orElseThrow(() -> new NotFoundException("Role was not found."));
     }
 
 }

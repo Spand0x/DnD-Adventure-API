@@ -4,6 +4,7 @@ import com.dndadventure.domain.entities.RefreshToken;
 import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.services.AuthService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +24,8 @@ public class AuthController {
     }
 
     @PostMapping(value = "/token")
-    public void obtainAccessToken(HttpServletRequest request,
-                                  HttpServletResponse response){
+    public ResponseEntity<?> obtainAccessToken(HttpServletRequest request,
+                                               HttpServletResponse response) {
         Cookie refreshTokenCookie = this.authService.getRefreshTokenCookie(request)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No refresh token."));
 
@@ -37,5 +38,6 @@ public class AuthController {
         }
         this.authService.obtainNewTokens(refreshToken)
             .forEach(response::addCookie);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

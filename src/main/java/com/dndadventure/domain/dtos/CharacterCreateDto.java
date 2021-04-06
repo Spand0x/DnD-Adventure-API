@@ -1,5 +1,8 @@
 package com.dndadventure.domain.dtos;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.*;
 import java.util.List;
 
 public class CharacterCreateDto {
@@ -9,13 +12,15 @@ public class CharacterCreateDto {
     private String race;
     private String clazz;
     private String imageUrl;
-    private List<CharacterStatsCreateDto> stats;
+    private List<CharacterStatCreateDto> stats;
     private List<String> weapons;
     private List<String> spells;
 
     public CharacterCreateDto() {
     }
 
+    @NotBlank(message = "Name cannot be empty.")
+    @Length(min = 3, message = "Name must contain at least 3 characters.")
     public String getName() {
         return name;
     }
@@ -34,6 +39,8 @@ public class CharacterCreateDto {
         return this;
     }
 
+    @NotNull(message = "Gold should be zero or positive number.")
+    @Min(value = 0, message = "Gold should be zero or positive number.")
     public Integer getGold() {
         return gold;
     }
@@ -43,6 +50,7 @@ public class CharacterCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Race cannot be empty.")
     public String getRace() {
         return race;
     }
@@ -52,6 +60,7 @@ public class CharacterCreateDto {
         return this;
     }
 
+    @NotBlank(message = "Class cannot be empty.")
     public String getClazz() {
         return clazz;
     }
@@ -61,11 +70,13 @@ public class CharacterCreateDto {
         return this;
     }
 
-    public List<CharacterStatsCreateDto> getStats() {
+    @NotEmpty(message = "Stats cannot be empty.")
+    @Size(min = 6, max = 6,message = "6 stats should be included.")
+    public List<CharacterStatCreateDto> getStats() {
         return stats;
     }
 
-    public CharacterCreateDto setStats(List<CharacterStatsCreateDto> stats) {
+    public CharacterCreateDto setStats(List<CharacterStatCreateDto> stats) {
         this.stats = stats;
         return this;
     }

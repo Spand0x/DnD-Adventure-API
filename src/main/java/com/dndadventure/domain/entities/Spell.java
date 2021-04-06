@@ -27,6 +27,7 @@ public class Spell extends BaseEntity {
     public Spell() {
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -36,7 +37,7 @@ public class Spell extends BaseEntity {
         return this;
     }
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -46,6 +47,7 @@ public class Spell extends BaseEntity {
         return this;
     }
 
+    @Column(nullable = false)
     public Byte getLevel() {
         return level;
     }
@@ -103,7 +105,7 @@ public class Spell extends BaseEntity {
     }
 
     //Range is a key word in SQL
-    @Column(name = "spell_range")
+    @Column(name = "spell_range", nullable = false)
     public String getRange() {
         return range;
     }
@@ -114,6 +116,7 @@ public class Spell extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public SpellCastingTypeEnum getCastingType() {
         return castingType;
     }
@@ -124,6 +127,7 @@ public class Spell extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     public SpellDurationTypeEnum getDurationType() {
         return durationType;
     }

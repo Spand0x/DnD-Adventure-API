@@ -5,30 +5,33 @@ import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
-public abstract class Stats extends BaseEntity {
+public abstract class Stat extends BaseEntity {
     private CharacterStatsEnum name;
     private Byte value;
 
-    public Stats() {
+    public Stat() {
     }
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "Stats name cannot be empty.")
     public CharacterStatsEnum getName() {
         return name;
     }
 
-    public Stats setName(CharacterStatsEnum name) {
+    public Stat setName(CharacterStatsEnum name) {
         this.name = name;
         return this;
     }
 
+    @NotNull(message = "Stats value cannot be empty.")
     public Byte getValue() {
         return value;
     }
 
-    public Stats setValue(Byte value) {
+    public Stat setValue(Byte value) {
         this.value = value;
         return this;
     }

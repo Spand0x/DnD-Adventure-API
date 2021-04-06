@@ -6,9 +6,12 @@ import com.dndadventure.domain.dtos.SpellNameDto;
 import com.dndadventure.services.SpellService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,20 +25,22 @@ public class SpellController {
 
     @PostMapping
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public void create(@RequestBody SpellCreateDto spellCreateDto){
+    public ResponseEntity<?> create(@RequestBody @Valid SpellCreateDto spellCreateDto) {
         this.spellService.create(spellCreateDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/names")
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public List<SpellNameDto> getAllNames(){
+    public List<SpellNameDto> getAllNames() {
         return this.spellService.getAllNames();
     }
 
     @GetMapping("/{uuid}")
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public SpellDetailsDto getSpell(@PathVariable String uuid){
-        return this.spellService.getSpellDetails(uuid);
+    public ResponseEntity<SpellDetailsDto> getSpell(@PathVariable String uuid) {
+        SpellDetailsDto spellDetails = this.spellService.getSpellDetails(uuid);
+        return new ResponseEntity<>(spellDetails, HttpStatus.OK);
     }
 
     @GetMapping("/all")

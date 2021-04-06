@@ -6,7 +6,7 @@ import com.dndadventure.domain.entities.CharacterClass;
 import java.util.List;
 
 public interface CharacterClassService {
-    public void create(CharacterClassCreateDto characterClassCreateDto);
+    void create(CharacterClassCreateDto characterClassCreateDto);
 
     List<CharacterClass> getAll();
 

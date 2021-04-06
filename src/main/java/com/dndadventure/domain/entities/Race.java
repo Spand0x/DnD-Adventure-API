@@ -1,8 +1,8 @@
 package com.dndadventure.domain.entities;
 
 
-import com.dndadventure.domain.entities.RaceTraits.RaceAdvantage;
-import com.dndadventure.domain.entities.RaceTraits.RaceDisadvantage;
+import com.dndadventure.domain.entities.raceTraits.RaceAdvantage;
+import com.dndadventure.domain.entities.raceTraits.RaceDisadvantage;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,11 +15,12 @@ public class Race extends BaseEntity {
     private String description;
     private Set<RaceAdvantage> advantages;
     private Set<RaceDisadvantage> disadvantages;
-    private List<StatsModifier> modifiers;
+    private List<StatModifier> modifiers;
 
     public Race() {
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -29,7 +30,7 @@ public class Race extends BaseEntity {
         return this;
     }
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -67,11 +68,11 @@ public class Race extends BaseEntity {
         joinColumns = @JoinColumn(name = "race_uuid", referencedColumnName = "uuid"),
         inverseJoinColumns = @JoinColumn(name = "stat_uuid", referencedColumnName = "uuid")
     )
-    public List<StatsModifier> getModifiers() {
+    public List<StatModifier> getModifiers() {
         return modifiers;
     }
 
-    public Race setModifiers(List<StatsModifier> modifiers) {
+    public Race setModifiers(List<StatModifier> modifiers) {
         this.modifiers = modifiers;
         return this;
     }

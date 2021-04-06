@@ -5,8 +5,12 @@ import com.dndadventure.domain.dtos.WeaponDetailsDto;
 import com.dndadventure.services.WeaponService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/weapons")
@@ -19,8 +23,9 @@ public class WeaponController {
 
     @PostMapping
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public void create(@RequestBody WeaponCreateDto weaponCreateDto) {
+    public ResponseEntity<?> create(@RequestBody @Valid WeaponCreateDto weaponCreateDto) {
         this.weaponService.create(weaponCreateDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

@@ -1,4 +1,4 @@
-package com.dndadventure.domain.entities.RaceTraits;
+package com.dndadventure.domain.entities.raceTraits;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

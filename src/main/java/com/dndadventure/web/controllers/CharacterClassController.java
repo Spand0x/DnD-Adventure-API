@@ -3,9 +3,12 @@ package com.dndadventure.web.controllers;
 import com.dndadventure.domain.dtos.CharacterClassCreateDto;
 import com.dndadventure.domain.entities.CharacterClass;
 import com.dndadventure.services.CharacterClassService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,8 +22,9 @@ public class CharacterClassController {
 
     @PostMapping
     @PreAuthorize("hasRole('DUNGEON_MASTER')")
-    public void create(@RequestBody CharacterClassCreateDto characterClassCreateDto) {
+    public ResponseEntity<?> create(@RequestBody @Valid CharacterClassCreateDto characterClassCreateDto) {
         this.characterClassService.create(characterClassCreateDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping

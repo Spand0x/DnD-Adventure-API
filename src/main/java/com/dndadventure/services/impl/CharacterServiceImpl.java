@@ -107,7 +107,7 @@ public class CharacterServiceImpl implements CharacterService {
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.CONSTITUTION))
             .findFirst().get().getValue();
-        StatsModifier constitutionModifier = character.getRace().getModifiers()
+        StatModifier constitutionModifier = character.getRace().getModifiers()
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.CONSTITUTION))
             .findFirst()
@@ -126,7 +126,7 @@ public class CharacterServiceImpl implements CharacterService {
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.DEXTERITY))
             .findFirst().get().getValue();
-        StatsModifier dexterityModifier = character.getRace().getModifiers()
+        StatModifier dexterityModifier = character.getRace().getModifiers()
             .stream()
             .filter(s -> s.getName().equals(CharacterStatsEnum.DEXTERITY))
             .findFirst()
@@ -141,7 +141,7 @@ public class CharacterServiceImpl implements CharacterService {
         return (byte) Math.floorDiv(stat - 10, 2);
     }
 
-    private void modifyStats(Character character, List<StatsModifier> modifiers) {
+    private void modifyStats(Character character, List<StatModifier> modifiers) {
         character.getStats().forEach(s -> {
             modifiers.forEach(m -> {
                 if (s.getName().equals(m.getName())) {

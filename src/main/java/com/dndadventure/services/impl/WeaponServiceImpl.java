@@ -4,7 +4,7 @@ import com.dndadventure.domain.dtos.SpellNameDto;
 import com.dndadventure.domain.dtos.WeaponCreateDto;
 import com.dndadventure.domain.dtos.WeaponDetailsDto;
 import com.dndadventure.domain.entities.Spell;
-import com.dndadventure.domain.entities.items.Weapon;
+import com.dndadventure.domain.entities.Weapon;
 import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.WeaponRepository;
 import com.dndadventure.services.SpellService;
@@ -51,7 +51,6 @@ public class WeaponServiceImpl implements WeaponService {
             if (w.getSpell() != null) {
                 weaponDetailsDto.setSpell(this.modelMapper.map(w.getSpell(), SpellNameDto.class));
             }
-            // TO BE FIXED
             return weaponDetailsDto;
         });
     }

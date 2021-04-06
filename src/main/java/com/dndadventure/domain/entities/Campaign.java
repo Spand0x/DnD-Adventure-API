@@ -14,6 +14,7 @@ public class Campaign extends BaseEntity{
     public Campaign() {
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -23,7 +24,7 @@ public class Campaign extends BaseEntity{
         return this;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     public User getCreator() {
         return creator;
     }

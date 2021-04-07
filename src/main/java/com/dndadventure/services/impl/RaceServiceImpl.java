@@ -28,13 +28,6 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public List<Race> findAll() {
-        List<Race> all = this.raceRepository.findAll();
-        return all;
-    }
-
-
-    @Override
     public void create(RaceCreateDto raceCreateDto) {
         Race race = this.modelMapper.map(raceCreateDto, Race.class);
         List<StatModifier> modifiers = new ArrayList<>();
@@ -52,5 +45,10 @@ public class RaceServiceImpl implements RaceService {
     public Race getById(String uuid) {
         return this.raceRepository.findByIdWithModifiers(uuid)
             .orElseThrow(() -> new NotFoundException("Race not found."));
+    }
+
+    @Override
+    public List<Race> getAll() {
+        return this.raceRepository.findAll();
     }
 }

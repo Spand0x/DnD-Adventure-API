@@ -1,17 +1,17 @@
-package com.dndadventure.domain.entities.raceTraits;
-
-import com.dndadventure.domain.entities.BaseEntity;
+package com.dndadventure.domain.entities;
 
 import javax.persistence.*;
 
-@MappedSuperclass
-public abstract class BaseRaceTraits extends BaseEntity {
+@Entity
+@Table(name = "race_traits")
+public class BaseRaceTraits extends BaseEntity {
     private String name;
     private String description;
 
     public BaseRaceTraits() {
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -21,7 +21,7 @@ public abstract class BaseRaceTraits extends BaseEntity {
         return this;
     }
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     public String getDescription() {
         return description;
     }

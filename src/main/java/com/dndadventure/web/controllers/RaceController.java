@@ -22,7 +22,7 @@ public class RaceController {
 
     @GetMapping
     public Iterable<Race> getAll() {
-        return raceService.findAll();
+        return raceService.getAll();
     }
 
     @PostMapping

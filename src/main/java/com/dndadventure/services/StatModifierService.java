@@ -8,5 +8,5 @@ import java.util.List;
 public interface StatModifierService {
     void create(StatModifierCreateDto statsModifier);
 
-    List<StatModifierDto> findAll();
+    List<StatModifierDto> getAll();
 }

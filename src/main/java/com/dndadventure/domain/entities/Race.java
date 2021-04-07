@@ -1,9 +1,6 @@
 package com.dndadventure.domain.entities;
 
 
-import com.dndadventure.domain.entities.raceTraits.RaceAdvantage;
-import com.dndadventure.domain.entities.raceTraits.RaceDisadvantage;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -13,8 +10,8 @@ import java.util.Set;
 public class Race extends BaseEntity {
     private String name;
     private String description;
-    private Set<RaceAdvantage> advantages;
-    private Set<RaceDisadvantage> disadvantages;
+    private Set<BaseRaceTraits> advantages;
+    private Set<BaseRaceTraits> disadvantages;
     private List<StatModifier> modifiers;
 
     public Race() {
@@ -41,23 +38,23 @@ public class Race extends BaseEntity {
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    @JoinColumn(name = "race_uuid",referencedColumnName = "uuid")
-    public Set<RaceAdvantage> getAdvantages() {
+    @JoinColumn(name = "race_uuid", referencedColumnName = "uuid")
+    public Set<BaseRaceTraits> getAdvantages() {
         return advantages;
     }
 
-    public Race setAdvantages(Set<RaceAdvantage> advantages) {
+    public Race setAdvantages(Set<BaseRaceTraits> advantages) {
         this.advantages = advantages;
         return this;
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     @JoinColumn(name = "race_uuid", referencedColumnName = "uuid")
-    public Set<RaceDisadvantage> getDisadvantages() {
+    public Set<BaseRaceTraits> getDisadvantages() {
         return disadvantages;
     }
 
-    public Race setDisadvantages(Set<RaceDisadvantage> disadvantages) {
+    public Race setDisadvantages(Set<BaseRaceTraits> disadvantages) {
         this.disadvantages = disadvantages;
         return this;
     }

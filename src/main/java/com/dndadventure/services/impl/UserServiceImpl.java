@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class  UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final ModelMapper modelMapper;
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoDto get(User user) {
         User userEntity = this.userRepository.findById(user.getUuid())
-            .orElseThrow(NotFoundException::new);
+            .orElseThrow(() -> new NotFoundException("User was not found!"));
         UserInfoDto userInfoDto = this.modelMapper.map(userEntity, UserInfoDto.class);
         userInfoDto.setRoles(userEntity.getUserRoles()
             .stream()
@@ -51,14 +51,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         return this.userRepository.findAll();
     }
 
     @Override
     public void register(UserRegisterDto userRegisterDto) {
         if (!userRegisterDto.getPassword().equals(userRegisterDto.getRepPassword())) {
-            throw new IllegalArgumentException("Passwords does not match");
+            throw new IllegalArgumentException("Passwords does not match!");
         }
 
         if (userRegisterDto.getUsername().length() < 3) {
@@ -70,10 +70,10 @@ public class UserServiceImpl implements UserService {
         }
 
         if (this.userRepository.findByUsernameOrEmail(userRegisterDto.getUsername(), userRegisterDto.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with this username / email already exists.");
+            throw new IllegalArgumentException("User with this username / email already exists!");
         }
         UserRole userRole = this.userRoleRepository.findByRole(UserRoleEnum.USER)
-            .orElseThrow(() -> new NotFoundException("User Role was not found."));
+            .orElseThrow(() -> new NotFoundException("User Role was not found!"));
 
         User user = new User()
             .setUserRoles(Set.of(userRole))
@@ -110,9 +110,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changeRole(UserChangeRoleDto userChangeRoleDto) {
         User user = this.userRepository.findById(userChangeRoleDto.getUuid())
-            .orElseThrow(() -> new NotFoundException("User was not found"));
+            .orElseThrow(() -> new NotFoundException("User was not found!"));
+        UserRole newRole = this.userRoleRepository.findById(userChangeRoleDto.getNewRole())
+            .orElseThrow(() -> new NotFoundException("Role was not found!"));
         Set<UserRole> roles = new HashSet<>();
-        switch (userChangeRoleDto.getNewRole()) {
+        switch (newRole.getRole()) {
             case USER:
                 roles.add(getUserRole(UserRoleEnum.USER));
                 break;

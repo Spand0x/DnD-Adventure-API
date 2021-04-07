@@ -8,7 +8,7 @@ import java.util.List;
 public interface CharacterClassService {
     void create(CharacterClassCreateDto characterClassCreateDto);
 
-    List<CharacterClass> getAll();
-
     CharacterClass getById(String uuid);
+
+    List<CharacterClass> getAll();
 }

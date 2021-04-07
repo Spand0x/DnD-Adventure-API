@@ -1,6 +1,7 @@
 package com.dndadventure.web.controllers;
 
 import com.dndadventure.domain.dtos.CharacterClassCreateDto;
+import com.dndadventure.domain.dtos.CharacterClassDetailsDto;
 import com.dndadventure.domain.entities.CharacterClass;
 import com.dndadventure.services.CharacterClassService;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class CharacterClassController {
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    public List<CharacterClass> getAll() {
+    public List<CharacterClassDetailsDto> getAll() {
         return this.characterClassService.getAll();
     }
 

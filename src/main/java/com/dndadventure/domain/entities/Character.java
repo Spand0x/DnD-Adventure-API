@@ -114,7 +114,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     public Race getRace() {
         return race;
     }
@@ -124,7 +124,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     public CharacterClass getClazz() {
         return clazz;
     }

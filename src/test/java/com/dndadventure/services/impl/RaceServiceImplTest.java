@@ -2,6 +2,7 @@ package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.RaceBaseTraitCreateDto;
 import com.dndadventure.domain.dtos.RaceCreateDto;
+import com.dndadventure.domain.dtos.RaceDetailsDto;
 import com.dndadventure.domain.dtos.StatModifierDto;
 import com.dndadventure.domain.entities.Race;
 import com.dndadventure.domain.entities.StatModifier;
@@ -105,7 +106,7 @@ public class RaceServiceImplTest {
         when(this.raceRepositoryMock.findAll())
             .thenReturn(Collections.emptyList());
 
-        List<Race> races = this.raceService.getAll();
+        List<RaceDetailsDto> races = this.raceService.getAll();
 
         assertEquals(0, races.size());
     }
@@ -115,7 +116,7 @@ public class RaceServiceImplTest {
         when(this.raceRepositoryMock.findAll())
             .thenReturn(Collections.singletonList(TestUtils.mockRace()));
 
-        List<Race> races = this.raceService.getAll();
+        List<RaceDetailsDto> races = this.raceService.getAll();
 
         assertEquals(1, races.size());
     }

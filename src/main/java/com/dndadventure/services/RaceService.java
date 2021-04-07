@@ -1,6 +1,7 @@
 package com.dndadventure.services;
 
 import com.dndadventure.domain.dtos.RaceCreateDto;
+import com.dndadventure.domain.dtos.RaceDetailsDto;
 import com.dndadventure.domain.entities.Race;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface RaceService {
 
     Race getById(String uuid);
 
-    List<Race> getAll();
+    List<RaceDetailsDto> getAll();
 }

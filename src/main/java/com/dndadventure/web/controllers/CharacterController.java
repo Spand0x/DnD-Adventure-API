@@ -1,6 +1,6 @@
 package com.dndadventure.web.controllers;
 
-import com.dndadventure.domain.UuidDto;
+import com.dndadventure.domain.dtos.UuidDto;
 import com.dndadventure.domain.dtos.CharacterCreateDto;
 import com.dndadventure.domain.dtos.CharacterHpChangeDto;
 import com.dndadventure.domain.dtos.CharacterViewDto;

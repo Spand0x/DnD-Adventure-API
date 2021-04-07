@@ -1,9 +1,7 @@
 package com.dndadventure;
 
 import com.dndadventure.domain.entities.*;
-import com.dndadventure.domain.entities.BaseRaceTraits;
 import com.dndadventure.domain.entities.constants.*;
-import com.dndadventure.domain.entities.Weapon;
 import com.dndadventure.repositories.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -96,46 +94,36 @@ public class DbInit {
             List<StatModifier> statModifiers = this.statModifierRepository.findAll();
             int statsSize = statModifiers.size();
 
-            List<BaseRaceTraits> advantages = new ArrayList<>();
-            List<BaseRaceTraits> disadvantages = new ArrayList<>();
-            for (int i = 0; i < 8; i++) {
-                advantages.add((BaseRaceTraits) new BaseRaceTraits()
-                    .setName(String.format("Advantage name %d", (i + 1)))
-                    .setDescription(String.format("Advantage description %d for advantage with name %d.", (i + 1), (i + 1))));
-
-                disadvantages.add((BaseRaceTraits) new BaseRaceTraits()
-                    .setName(String.format("Disadvantage name %d", (i + 1)))
-                    .setDescription(String.format("Disadvantage description %d for disadvantage with name %d.", (i + 1), (i + 1))));
-            }
+            Map<String, Set<BaseRaceTraits>> advantages = this.generateAdvantages();
+            Map<String, Set<BaseRaceTraits>> disadvantages = this.generateDisadvantages();
 
             Race elf = new Race()
                 .setName("Elf")
                 .setDescription("Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.")
-                .setAdvantages(Set.of(advantages.get(0), advantages.get(1)))
-                .setDisadvantages(Set.of(disadvantages.get(0), disadvantages.get(1)))
+                .setAdvantages(advantages.get("Elf"))
+                .setDisadvantages(disadvantages.get("Elf"))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race dwarf = new Race()
                 .setName("Dwarf")
                 .setDescription("Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.")
-                .setAdvantages(Set.of(advantages.get(2), advantages.get(3)))
-                .setDisadvantages(Set.of(disadvantages.get(2), disadvantages.get(3)))
+                .setAdvantages(advantages.get("Dwarf"))
+                .setDisadvantages(disadvantages.get("Dwarf"))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race human = new Race()
                 .setName("Human")
                 .setDescription("Humans are the most adaptable and ambitious people among the common races. " +
                     "Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.")
-                .setAdvantages(Set.of(advantages.get(4), advantages.get(5)))
-                .setDisadvantages(Set.of(disadvantages.get(4), disadvantages.get(5)))
+                .setAdvantages(advantages.get("Human"))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race orc = new Race()
                 .setName("Orc")
                 .setDescription("Half-orcs’ grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, " +
                     "and towering builds make their orcish heritage plain for all to see.")
-                .setAdvantages(Set.of(advantages.get(6), advantages.get(7)))
-                .setDisadvantages(Set.of(disadvantages.get(6), disadvantages.get(7)))
+                .setAdvantages(advantages.get("Orc"))
+                .setDisadvantages(disadvantages.get("Orc"))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             this.raceRepository.save(elf);
@@ -143,6 +131,57 @@ public class DbInit {
             this.raceRepository.save(human);
             this.raceRepository.save(orc);
         }
+    }
+
+    private Map<String, Set<BaseRaceTraits>> generateAdvantages() {
+        Map<String, Set<BaseRaceTraits>> advantages = new HashMap<>();
+        BaseRaceTraits darkvision = new BaseRaceTraits()
+            .setName("Darkvision")
+            .setDescription("Accustomed to twilit forests and the night sky, you have superior vision in dark and dim conditions. " +
+                "You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. " +
+                "You can’t discern color in darkness, only shades of gray.");
+        BaseRaceTraits feyAncestry = new BaseRaceTraits()
+            .setName("Fey Ancestry")
+            .setDescription("You have advantage on saving throws against being charmed, and magic can’t put you to sleep.");
+        BaseRaceTraits dwarvenToughness = new BaseRaceTraits()
+            .setName("Dwarven Toughness")
+            .setDescription("Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.");
+        BaseRaceTraits abilityScoreIncrease = new BaseRaceTraits()
+            .setName("Ability Score Increase")
+            .setDescription("Your ability scores each increase by 1.");
+        BaseRaceTraits languages = new BaseRaceTraits()
+            .setName("Languages")
+            .setDescription("You can speak, read, and write Common and one extra language of your choice.");
+        BaseRaceTraits savageAttacks = new BaseRaceTraits()
+            .setName("Savage Attacks")
+            .setDescription("When you score a critical hit with a melee weapon attack, " +
+                "you can roll one of the weapon’s damage dice one additional time and add it to the extra damage of the critical hit.");
+
+        advantages.put("Elf", Set.of(darkvision, feyAncestry));
+        advantages.put("Dwarf", Set.of(dwarvenToughness));
+        advantages.put("Human", Set.of(abilityScoreIncrease, languages));
+        advantages.put("Orc", Set.of(savageAttacks));
+
+        return advantages;
+    }
+
+    private Map<String, Set<BaseRaceTraits>> generateDisadvantages() {
+        Map<String, Set<BaseRaceTraits>> disadvantages = new HashMap<>();
+        BaseRaceTraits unlucky = new BaseRaceTraits()
+            .setName("Unlucky")
+            .setDescription("Every third attack you drop your weapon");
+        BaseRaceTraits holyLight = new BaseRaceTraits()
+            .setName("Holy Light")
+            .setDescription("When you are exposed to direct sun light for more then five minutes you lose 1 hp");
+        BaseRaceTraits slow = new BaseRaceTraits()
+            .setName("Slow-ow")
+            .setDescription("You move slower then everyone else.");
+
+        disadvantages.put("Elf", Set.of(unlucky));
+        disadvantages.put("Dwarf", Set.of(slow));
+        disadvantages.put("Orc", Set.of(holyLight));
+
+        return disadvantages;
     }
 
     private void seedClasses() {

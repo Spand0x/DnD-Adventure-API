@@ -1,4 +1,4 @@
-package com.dndadventure.domain;
+package com.dndadventure.domain.dtos;
 
 public class UuidDto {
     private String uuid;

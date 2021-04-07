@@ -1,6 +1,7 @@
 package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.RaceCreateDto;
+import com.dndadventure.domain.dtos.RaceDetailsDto;
 import com.dndadventure.domain.entities.Race;
 import com.dndadventure.domain.entities.StatModifier;
 import com.dndadventure.exceptions.NotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RaceServiceImpl implements RaceService {
@@ -48,7 +50,10 @@ public class RaceServiceImpl implements RaceService {
     }
 
     @Override
-    public List<Race> getAll() {
-        return this.raceRepository.findAll();
+    public List<RaceDetailsDto> getAll() {
+        return this.raceRepository.findAll()
+            .stream()
+            .map(race -> this.modelMapper.map(race, RaceDetailsDto.class))
+            .collect(Collectors.toList());
     }
 }

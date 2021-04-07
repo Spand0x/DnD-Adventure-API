@@ -1,6 +1,7 @@
 package com.dndadventure.web.controllers;
 
 import com.dndadventure.domain.dtos.RaceCreateDto;
+import com.dndadventure.domain.dtos.RaceDetailsDto;
 import com.dndadventure.domain.entities.Race;
 import com.dndadventure.services.RaceService;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/races")
@@ -21,7 +23,7 @@ public class RaceController {
     }
 
     @GetMapping
-    public Iterable<Race> getAll() {
+    public List<RaceDetailsDto> getAll() {
         return raceService.getAll();
     }
 

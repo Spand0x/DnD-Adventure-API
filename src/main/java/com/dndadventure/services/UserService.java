@@ -15,7 +15,7 @@ import java.util.List;
 public interface UserService {
     UserInfoDto get(User user);
 
-    List<User> findAll();
+    List<User> getAll();
 
     void register(UserRegisterDto userRegisterDto);
 

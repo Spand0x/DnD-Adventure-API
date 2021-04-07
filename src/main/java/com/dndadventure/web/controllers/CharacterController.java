@@ -40,15 +40,15 @@ public class CharacterController {
 
     @PostMapping("/change-hp")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> changeHp(@RequestBody CharacterHpChangeDto characterHpChangeDto) {
-        this.characterService.changeHp(characterHpChangeDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CharacterViewDto> changeHp(@RequestBody CharacterHpChangeDto characterHpChangeDto) {
+        CharacterViewDto characterViewDto = this.characterService.changeHp(characterHpChangeDto);
+        return new ResponseEntity<>(characterViewDto, HttpStatus.OK);
     }
 
     @PostMapping("/cast-spell")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> castSpell(@RequestBody UuidDto characterUuid) {
-        this.characterService.castSpell(characterUuid.getUuid());
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CharacterViewDto> castSpell(@RequestBody UuidDto characterUuid) {
+        CharacterViewDto characterViewDto = this.characterService.castSpell(characterUuid.getUuid());
+        return new ResponseEntity<>(characterViewDto, HttpStatus.OK);
     }
 }

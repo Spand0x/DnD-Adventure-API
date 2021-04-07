@@ -1,8 +1,7 @@
 package com.dndadventure;
 
 import com.dndadventure.domain.entities.*;
-import com.dndadventure.domain.entities.raceTraits.RaceAdvantage;
-import com.dndadventure.domain.entities.raceTraits.RaceDisadvantage;
+import com.dndadventure.domain.entities.BaseRaceTraits;
 import com.dndadventure.domain.entities.constants.*;
 import com.dndadventure.domain.entities.Weapon;
 import com.dndadventure.repositories.*;
@@ -97,14 +96,14 @@ public class DbInit {
             List<StatModifier> statModifiers = this.statModifierRepository.findAll();
             int statsSize = statModifiers.size();
 
-            List<RaceAdvantage> raceAdvantages = new ArrayList<>();
-            List<RaceDisadvantage> raceDisadvantages = new ArrayList<>();
+            List<BaseRaceTraits> advantages = new ArrayList<>();
+            List<BaseRaceTraits> disadvantages = new ArrayList<>();
             for (int i = 0; i < 8; i++) {
-                raceAdvantages.add((RaceAdvantage) new RaceAdvantage()
+                advantages.add((BaseRaceTraits) new BaseRaceTraits()
                     .setName(String.format("Advantage name %d", (i + 1)))
                     .setDescription(String.format("Advantage description %d for advantage with name %d.", (i + 1), (i + 1))));
 
-                raceDisadvantages.add((RaceDisadvantage) new RaceDisadvantage()
+                disadvantages.add((BaseRaceTraits) new BaseRaceTraits()
                     .setName(String.format("Disadvantage name %d", (i + 1)))
                     .setDescription(String.format("Disadvantage description %d for disadvantage with name %d.", (i + 1), (i + 1))));
             }
@@ -112,31 +111,31 @@ public class DbInit {
             Race elf = new Race()
                 .setName("Elf")
                 .setDescription("Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.")
-                .setAdvantages(Set.of(raceAdvantages.get(0), raceAdvantages.get(1)))
-                .setDisadvantages(Set.of(raceDisadvantages.get(0), raceDisadvantages.get(1)))
+                .setAdvantages(Set.of(advantages.get(0), advantages.get(1)))
+                .setDisadvantages(Set.of(disadvantages.get(0), disadvantages.get(1)))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race dwarf = new Race()
                 .setName("Dwarf")
                 .setDescription("Bold and hardy, dwarves are known as skilled warriors, miners, and workers of stone and metal.")
-                .setAdvantages(Set.of(raceAdvantages.get(2), raceAdvantages.get(3)))
-                .setDisadvantages(Set.of(raceDisadvantages.get(2), raceDisadvantages.get(3)))
+                .setAdvantages(Set.of(advantages.get(2), advantages.get(3)))
+                .setDisadvantages(Set.of(disadvantages.get(2), disadvantages.get(3)))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race human = new Race()
                 .setName("Human")
                 .setDescription("Humans are the most adaptable and ambitious people among the common races. " +
                     "Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.")
-                .setAdvantages(Set.of(raceAdvantages.get(4), raceAdvantages.get(5)))
-                .setDisadvantages(Set.of(raceDisadvantages.get(4), raceDisadvantages.get(5)))
+                .setAdvantages(Set.of(advantages.get(4), advantages.get(5)))
+                .setDisadvantages(Set.of(disadvantages.get(4), disadvantages.get(5)))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             Race orc = new Race()
                 .setName("Orc")
                 .setDescription("Half-orcs’ grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, " +
                     "and towering builds make their orcish heritage plain for all to see.")
-                .setAdvantages(Set.of(raceAdvantages.get(6), raceAdvantages.get(7)))
-                .setDisadvantages(Set.of(raceDisadvantages.get(6), raceDisadvantages.get(7)))
+                .setAdvantages(Set.of(advantages.get(6), advantages.get(7)))
+                .setDisadvantages(Set.of(disadvantages.get(6), disadvantages.get(7)))
                 .setModifiers(List.of(statModifiers.get(randomNumber(statsSize)), statModifiers.get(randomNumber(statsSize))));
 
             this.raceRepository.save(elf);

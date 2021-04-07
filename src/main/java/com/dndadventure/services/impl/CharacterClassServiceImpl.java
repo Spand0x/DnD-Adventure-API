@@ -31,13 +31,13 @@ public class CharacterClassServiceImpl implements CharacterClassService {
     }
 
     @Override
-    public List<CharacterClass> getAll() {
-        return this.characterClassRepository.findAll();
-    }
-
-    @Override
     public CharacterClass getById(String uuid) {
         return this.characterClassRepository.findById(uuid)
             .orElseThrow(() -> new NotFoundException("Character Class not found."));
+    }
+
+    @Override
+    public List<CharacterClass> getAll() {
+        return this.characterClassRepository.findAll();
     }
 }

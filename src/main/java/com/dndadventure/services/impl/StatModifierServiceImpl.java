@@ -31,7 +31,7 @@ public class StatModifierServiceImpl implements StatModifierService {
     }
 
     @Override
-    public List<StatModifierDto> findAll() {
+    public List<StatModifierDto> getAll() {
         return this.statModifierRepository.findAll()
             .stream()
             .map(mod -> this.modelMapper.map(mod, StatModifierDto.class))

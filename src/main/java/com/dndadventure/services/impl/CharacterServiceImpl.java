@@ -75,29 +75,38 @@ public class CharacterServiceImpl implements CharacterService {
     public CharacterViewDto get(String uuid) {
         Character character = this.characterRepository.findById(uuid)
             .orElseThrow(() -> new NotFoundException("Character not found!"));
-        CharacterViewDto characterViewDto = this.modelMapper.map(character, CharacterViewDto.class);
-        return characterViewDto;
+        return this.modelMapper.map(character, CharacterViewDto.class);
     }
 
     @Override
-    public void changeHp(CharacterHpChangeDto characterHpChangeDto) {
+    public CharacterViewDto changeHp(CharacterHpChangeDto characterHpChangeDto) {
         Character character = this.characterRepository.findById(characterHpChangeDto.getUuid())
             .orElseThrow(() -> new NotFoundException("Character not found!"));
-        character.setCurrentHitPoints(characterHpChangeDto.getCurrentHitPoints());
-        this.characterRepository.save(character);
+        Integer newHitPoints = characterHpChangeDto.getCurrentHitPoints();
+        if (newHitPoints > 0 && newHitPoints <= character.getMaxHitPoints()) {
+            character.setCurrentHitPoints(newHitPoints);
+            character.setDead(false);
+        } else if (newHitPoints <= 0 ) {
+            character.setCurrentHitPoints(0);
+            character.setDead(true);
+        } else if (newHitPoints > character.getMaxHitPoints()) {
+            character.setCurrentHitPoints(character.getMaxHitPoints());
+            character.setDead(false);
+        }
+        Character savedCharacter = this.characterRepository.save(character);
+        return this.modelMapper.map(savedCharacter, CharacterViewDto.class);
     }
 
     @Override
-    public void castSpell(String characterUuid) {
+    public CharacterViewDto castSpell(String characterUuid) {
         Character character = this.characterRepository.findById(characterUuid)
             .orElseThrow(() -> new NotFoundException("Character not found!"));
-        if (character.getAvailableSpellCharges() == 0) {
-            return;
-        } else if (character.getAvailableSpellCharges() < 0) {
+        if (character.getAvailableSpellCharges() <= 0) {
             throw new IllegalArgumentException("You don't have available spell charges!");
         }
         character.setAvailableSpellCharges(character.getAvailableSpellCharges() - 1);
-        this.characterRepository.save(character);
+        Character savedCharacter = this.characterRepository.save(character);
+        return this.modelMapper.map(savedCharacter, CharacterViewDto.class);
     }
 
     private void setFirstLevelHealth(Character character) {

@@ -1,15 +1,11 @@
 package com.dndadventure.domain.dtos;
 
-import com.dndadventure.domain.entities.constants.UserRoleEnum;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 public class UserChangeRoleDto {
     private String uuid;
-    private Set<UserRoleEnum> roles;
-    private UserRoleEnum newRole;
+    private String newRole;
 
     public UserChangeRoleDto() {
     }
@@ -24,21 +20,12 @@ public class UserChangeRoleDto {
         return this;
     }
 
-    public Set<UserRoleEnum> getRoles() {
-        return roles;
-    }
-
-    public UserChangeRoleDto setRoles(Set<UserRoleEnum> roles) {
-        this.roles = roles;
-        return this;
-    }
-
     @NotNull(message = "New role cannot be empty.")
-    public UserRoleEnum getNewRole() {
+    public String getNewRole() {
         return newRole;
     }
 
-    public UserChangeRoleDto setNewRole(UserRoleEnum newRole) {
+    public UserChangeRoleDto setNewRole(String newRole) {
         this.newRole = newRole;
         return this;
     }

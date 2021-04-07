@@ -10,7 +10,7 @@ public interface CharacterService {
 
     CharacterViewDto get(String uuid);
 
-    void changeHp(CharacterHpChangeDto characterHpChangeDto);
+    CharacterViewDto changeHp(CharacterHpChangeDto characterHpChangeDto);
 
-    void castSpell(String characterUuid);
+    CharacterViewDto castSpell(String characterUuid);
 }

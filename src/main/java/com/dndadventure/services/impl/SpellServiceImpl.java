@@ -62,7 +62,7 @@ public class SpellServiceImpl implements SpellService {
     public Set<Spell> getSpells(List<String> spellUuids) {
         Set<Spell> spells = new HashSet<>();
         spellUuids.forEach(uuid -> spells.add(this.spellRepository.findById(uuid)
-            .orElseThrow(() -> new NotFoundException("Spell not found"))));
+            .orElseThrow(() -> new NotFoundException("Spell was not found"))));
         return spells;
     }
 

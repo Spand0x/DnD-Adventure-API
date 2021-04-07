@@ -13,10 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/modifiers")
-public class StatsModifierController {
+public class StatModifierController {
     private final StatModifierService modifierService;
 
-    public StatsModifierController(StatModifierService modifierService) {
+    public StatModifierController(StatModifierService modifierService) {
         this.modifierService = modifierService;
     }
 
@@ -30,6 +30,6 @@ public class StatsModifierController {
     @GetMapping("/all")
     @PreAuthorize("hasRole('USER')")
     public List<StatModifierDto> findAll() {
-        return this.modifierService.findAll();
+        return this.modifierService.getAll();
     }
 }

@@ -24,4 +24,6 @@ public interface UserService {
     Page<UserDetailsDto> getAllByPages(String searchValue, Pageable pageable);
 
     void changeRole(UserChangeRoleDto userChangeRoleDto);
+
+    void delete(String uuid);
 }

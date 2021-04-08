@@ -126,7 +126,8 @@ public class AuthServiceImpl implements AuthService {
             .findFirst();
     }
 
-    private void deleteUserRefreshTokens(User user) {
+    @Override
+    public void deleteUserRefreshTokens(User user) {
         Iterable<RefreshToken> userRefreshTokens = this.refreshTokenRepository.findAllByUser(user);
         for (RefreshToken refreshToken : userRefreshTokens) {
             this.refreshTokenRepository.deleteById(refreshToken.getUuid());

@@ -75,8 +75,7 @@ public class User extends BaseEntity {
         return this;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_uuid")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "user")
     public Set<Character> getCharacters() {
         return characters;
     }

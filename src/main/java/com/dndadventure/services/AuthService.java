@@ -1,6 +1,7 @@
 package com.dndadventure.services;
 
 import com.dndadventure.domain.entities.RefreshToken;
+import com.dndadventure.domain.entities.User;
 import com.dndadventure.domain.entities.UserPrincipal;
 
 import javax.servlet.http.Cookie;
@@ -21,4 +22,6 @@ public interface AuthService {
     RefreshToken findByValue(String value);
 
     Iterable<Cookie> obtainNewTokens(RefreshToken refreshToken);
+
+    void deleteUserRefreshTokens(User user);
 }

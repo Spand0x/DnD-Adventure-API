@@ -11,6 +11,7 @@ import com.dndadventure.domain.entities.constants.UserRoleEnum;
 import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.UserRepository;
 import com.dndadventure.repositories.UserRoleRepository;
+import com.dndadventure.services.AuthService;
 import com.dndadventure.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -24,15 +25,21 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class  UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final AuthService authService;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserRoleRepository userRoleRepository,
+                           AuthService authService,
+                           ModelMapper modelMapper,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.authService = authService;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -132,6 +139,14 @@ public class  UserServiceImpl implements UserService {
         }
         user.setUserRoles(roles);
         this.userRepository.save(user);
+    }
+
+    @Override
+    public void delete(String uuid) {
+        User user = this.userRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException("User was not found!"));
+        this.authService.deleteUserRefreshTokens(user);
+        this.userRepository.delete(user);
     }
 
     private UserRole getUserRole(UserRoleEnum roleEnum) {

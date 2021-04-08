@@ -10,6 +10,7 @@ import com.dndadventure.domain.entities.constants.UserRoleEnum;
 import com.dndadventure.exceptions.NotFoundException;
 import com.dndadventure.repositories.UserRepository;
 import com.dndadventure.repositories.UserRoleRepository;
+import com.dndadventure.services.AuthService;
 import com.dndadventure.services.UserService;
 import com.dndadventure.testutils.TestUtils;
 import org.junit.Before;
@@ -35,6 +36,7 @@ public class UserServiceImplTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
+    private AuthService authServiceMock;
     private UserRepository userRepositoryMock;
     private UserRoleRepository userRoleRepositoryMock;
     private PasswordEncoder passwordEncoderMock;
@@ -43,12 +45,14 @@ public class UserServiceImplTest {
     @Before
     public void setUp() {
         ModelMapper modelMapper = new ModelMapper();
+        this.authServiceMock = mock(AuthService.class);
         this.userRepositoryMock = mock(UserRepository.class);
         this.userRoleRepositoryMock = mock(UserRoleRepository.class);
         this.passwordEncoderMock = mock(PasswordEncoder.class);
         this.userService = new UserServiceImpl(this.userRepositoryMock,
             this.userRoleRepositoryMock,
-            authService, modelMapper,
+            authServiceMock,
+            modelMapper,
             this.passwordEncoderMock);
     }
 

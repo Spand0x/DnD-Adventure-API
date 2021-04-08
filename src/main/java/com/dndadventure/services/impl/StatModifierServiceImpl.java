@@ -6,6 +6,8 @@ import com.dndadventure.domain.entities.StatModifier;
 import com.dndadventure.repositories.StatModifierRepository;
 import com.dndadventure.services.StatModifierService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +38,12 @@ public class StatModifierServiceImpl implements StatModifierService {
             .stream()
             .map(mod -> this.modelMapper.map(mod, StatModifierDto.class))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<StatModifierDto> getAllByPages(String searchValue, Pageable pageable) {
+        String value = searchValue.toLowerCase().trim();
+        Page<StatModifier> modifiers = this.statModifierRepository.findAllContainingValue(value, pageable);
+        return modifiers.map(m -> this.modelMapper.map(m, StatModifierDto.class));
     }
 }

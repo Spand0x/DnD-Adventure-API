@@ -1,6 +1,7 @@
 package com.dndadventure.services.impl;
 
 import com.dndadventure.domain.dtos.CharacterClassCreateDto;
+import com.dndadventure.domain.dtos.CharacterClassDetailsDto;
 import com.dndadventure.domain.entities.CharacterClass;
 import com.dndadventure.domain.entities.constants.CharacterStatsEnum;
 import com.dndadventure.domain.entities.constants.DiceTypeEnum;
@@ -93,7 +94,7 @@ public class CharacterClassServiceImplTest {
         when(this.characterClassRepositoryMock.findAll())
             .thenReturn(Collections.emptyList());
 
-        List<CharacterClass> characterClasses = this.characterClassService.getAll();
+        List<CharacterClassDetailsDto> characterClasses = this.characterClassService.getAll();
 
         assertEquals(0, characterClasses.size());
     }
@@ -103,7 +104,7 @@ public class CharacterClassServiceImplTest {
         when(this.characterClassRepositoryMock.findAll())
             .thenReturn(Collections.singletonList(TestUtils.mockCharacterClass()));
 
-        List<CharacterClass> characterClasses = this.characterClassService.getAll();
+        List<CharacterClassDetailsDto> characterClasses = this.characterClassService.getAll();
 
         assertEquals(1, characterClasses.size());
     }

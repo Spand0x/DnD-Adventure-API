@@ -1,6 +1,5 @@
 package com.dndadventure.services.impl;
 
-import com.dndadventure.domain.dtos.UserChangeRoleDto;
 import com.dndadventure.domain.dtos.UserDetailsDto;
 import com.dndadventure.domain.dtos.UserInfoDto;
 import com.dndadventure.domain.dtos.UserRegisterDto;
@@ -49,7 +48,7 @@ public class UserServiceImplTest {
         this.passwordEncoderMock = mock(PasswordEncoder.class);
         this.userService = new UserServiceImpl(this.userRepositoryMock,
             this.userRoleRepositoryMock,
-            modelMapper,
+            authService, modelMapper,
             this.passwordEncoderMock);
     }
 

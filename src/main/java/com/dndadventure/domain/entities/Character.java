@@ -134,7 +134,7 @@ public class Character extends BaseEntity {
         return this;
     }
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, targetEntity = User.class)
     public User getUser() {
         return user;
     }

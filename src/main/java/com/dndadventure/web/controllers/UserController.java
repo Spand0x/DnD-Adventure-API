@@ -50,4 +50,11 @@ public class UserController {
         this.userService.changeRole(userChangeRoleDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{uuid}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> delete(@PathVariable String uuid) {
+        this.userService.delete(uuid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
